@@ -1,0 +1,20 @@
+These are extra keyboard layouts / input methods for Chrome OS.
+
+How to install:
+ 1. go to chrome://extensions
+ 2. click on Load unpacked extensions...
+ 3. pick the folder containing the manifest for the extension you want to enable
+ 4. logout / login
+ 5. head over to chrome://settings/languages
+ 6. add the relevant language (e.g. French for the bepo keyboard layout)
+ 7. check the relevant keyboard layout / input method
+ 8. optionally, remove any un-needed keyboard layouts / input methods
+
+How to use:
+ 1. alt shift to cycle through all the enabled keyboard layouts / input methods
+ 2. type away
+ 3. ctrl space to toggle between the most recently used keyboard layouts / input methods
+
+Known limitations:
+ - These extensions are not allowed on the login/lock screen
+ - These extensions are not allowed on password fields
