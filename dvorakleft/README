@@ -1,1 +1,3 @@
-This extension adds a DVORAK Left keyboard layout to Chrome OS (see English (US) in chrome://settings/languages)
+dvorakleftxkb: surfaces the dvorak left layout in chrome://settings/languages (add English US and check the Dvorak left option).
+
+dvorakleftremap: Dvorak left built from scratch (not intended for actual use).
