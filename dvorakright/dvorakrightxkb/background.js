@@ -12,16 +12,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-var contextID = -1;
-
-chrome.input.ime.onFocus.addListener(function(context) {
-  contextID = context.contextID;
-});
-
-chrome.input.ime.onBlur.addListener(function(context) {
-  contextID = -1;
-});
-
 chrome.input.ime.onKeyEvent.addListener(
     function(engineID, keyData) {
       return false;
