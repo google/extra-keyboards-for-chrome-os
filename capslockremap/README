@@ -1,0 +1,7 @@
+This adds a German keyboard with a comma on the numpad (instead of a dot; see German in chrome://setting/languages)
+
+Known issues:
+ - CapsLock is still kicking in (see crbug.com/339654)
+
+Remaining work:
+ - workaround above issue by cancelling CapsLock (remapping keyevent to their unshifted counterparts)
