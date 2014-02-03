@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 var contextID = -1;
-var lastRemappedKeyEvent = null;
+var lastRemappedKeyEvent = undefined;
 var ctrlKey = false;
 
 chrome.input.ime.onFocus.addListener(function(context) {
@@ -31,7 +31,7 @@ function isCapsLock(keyData) {
 
 function isRemappedEvent(keyData) {  
  // hack, should check for a sender ID (to be added to KeyData)
- return lastRemappedKeyEvent != null &&
+ return lastRemappedKeyEvent != undefined &&
         (lastRemappedKeyEvent.key == keyData.key &&
          lastRemappedKeyEvent.code == keyData.code &&
          lastRemappedKeyEvent.type == keyData.type
