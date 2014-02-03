@@ -14,8 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 var contextID = -1;
-var remapTo = "a";
-var lastRemappedKeyEvent = "";
+var lastRemappedKeyEvent = null;
 var ctrlKey = false;
 
 chrome.input.ime.onFocus.addListener(function(context) {
@@ -26,28 +25,18 @@ chrome.input.ime.onBlur.addListener(function(context) {
   contextID = -1;
 });
 
-var lut = {"A":"a"}; // TODO complete the whole table of Shifted key => unshifted key
-
 function isCapsLock(keyData) {
    return (keyData.code == "CapsLock");
 };
 
 function isRemappedEvent(keyData) {  
  // hack, should check for a sender ID (to be added to KeyData)
- return lastRemappedKeyEvent != undefined &&
+ return lastRemappedKeyEvent != null &&
         (lastRemappedKeyEvent.key == keyData.key &&
          lastRemappedKeyEvent.code == keyData.code &&
          lastRemappedKeyEvent.type == keyData.type
         ); // requestID would be different so we are not checking for it  
 }
-
-function unshift(keyData) {
-  if (lut[keyData.key]) { 
-    keyData.key = lut[keyData.key];
-  }
-}
-
-
 
 chrome.input.ime.onKeyEvent.addListener(
     function(engineID, keyData) {
@@ -60,32 +49,21 @@ chrome.input.ime.onKeyEvent.addListener(
       
       
       if (isCapsLock(keyData)) {
-          if (chrome.input.ime.sendKeyEvents != undefined) {
-            keyData.code = "ControlLeft";
-            keyData.key = "Ctrl";
-            keyData.ctrlKey = (keyData.type == "keydown");
-            ctrlKey = keyData.ctrlKey;
-            keyData.capsLock = false;
-            chrome.input.ime.sendKeyEvents({"contextID": contextID, "keyData": [keyData]});
-            lastRemappedKeyEvent = keyData;                                                                 
-          } else {
-	      // TODO remove (can't be done without sendKeyEvents)
-            if (keyData.type == "keydown") {
-            chrome.input.ime.commitText({"contextID": contextID,
-                                   "text": remapTo});
-            } else {
-               console.log("keyup capslock");
-            }
-          }          
-        handled = true;
+        keyData.code = "ControlLeft";
+        keyData.key = "Ctrl";
+        keyData.ctrlKey = (keyData.type == "keydown");
+        ctrlKey = keyData.ctrlKey;
+        keyData.capsLock = false;
+        chrome.input.ime.sendKeyEvents({"contextID": contextID, "keyData": [keyData]});
+        lastRemappedKeyEvent = keyData;                                                 handled = true;
       } else if (ctrlKey) {
         keyData.ctrlKey = ctrlKey;
+        keyData.capsLock = false;
         chrome.input.ime.sendKeyEvents({"contextID": contextID, "keyData": [keyData]});
         lastRemappedKeyEvent = keyData;
-       handled = true;
+        handled = true;
       } else if (keyData.capsLock) {
-	// TODO need to unshift keyData
-        keyData.capsLock = false;
+	keyData.capsLock = false;
         chrome.input.ime.sendKeyEvents({"contextID": contextID, "keyData": [keyData]});
         lastRemappedKeyEvent = keyData;
         handled = true;
