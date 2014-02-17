@@ -20,9 +20,6 @@ limitations under the License.
   "permissions": [
     "input"
   ],
-  "background": {
-    "scripts": ["background.js"]
-  },
   "input_components": [
     {
       "name": "Dvorak left",
