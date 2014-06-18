@@ -16,7 +16,7 @@ limitations under the License.
 var AltGr = { PLAIN: "plain", ALTERNATE: "alternate" };
 var Shift = { PLAIN: "plain", SHIFTED: "shifted" };
 
-var States = { WAITING_FOR_COMPOSE_KEY_0: 0, WAITING_FOR_COMPOSE_KEY_1: 1, WAITING_FOR_COMPOSE_KEY_2: 2, COMPOSING : 3}; 
+var States = { WAITING_FOR_COMPOSE_KEY_0: 0, WAITING_FOR_COMPOSE_KEY_1: 1, COMPOSING : 2}; 
 
 var state = States.WAITING_FOR_COMPOSE_KEY_0;
 var contextID = -1;
@@ -471,25 +471,16 @@ chrome.input.ime.onKeyEvent.addListener(
       
       switch (state) {
         case States.WAITING_FOR_COMPOSE_KEY_0:
-          if (keyData.code == "ControlRight" && keyData.shiftKey && keyData.type == "keydown") {
+          if (keyData.code == "AltRight" && keyData.type == "keydown") {
             state = States.WAITING_FOR_COMPOSE_KEY_1;
           }
           break;
         case States.WAITING_FOR_COMPOSE_KEY_1:
-          if (keyData.code == "ControlRight" && keyData.shiftKey && keyData.type == "keyup") {
+          if (keyData.code == "AltRight" && keyData.type == "keyup") {
             state = States.COMPOSING;
-          } else if (keyData.key == "Shift" && keyData.type == "keyup") {
-            state = States.WAITING_FOR_COMPOSE_KEY_2;
           } else {
             state = States.WAITING_FOR_COMPOSE_KEY_0;
           }
-          break;
-        case States.WAITING_FOR_COMPOSE_KEY_2:
-          if (keyData.code == "ControlRight" && keyData.shiftKey && keyData.type == "keyup") {
-            state = States.COMPOSING;
-          } else {
-            state = States.WAITING_FOR_COMPOSE_KEY_0;
-          }  
           break;
         case States.COMPOSING:
             if (memorizeKey(keyData)) {
