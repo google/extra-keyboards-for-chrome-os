@@ -41,7 +41,7 @@ chrome.input.ime.onKeyEvent.addListener(
         }
       }
       
-      if (!handled && keyData.type == "keydown" && keyData.code == "BackQuote" && keyData.key =="`") {
+      if (!handled && keyData.type == "keydown" && keyData.code == "Backquote" && keyData.key =="`") {
         previousCharIsMagic = true;
         handled = true;
       }
