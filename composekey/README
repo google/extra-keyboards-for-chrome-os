@@ -1,10 +1,7 @@
-This adds a compose key (shift + right ctrl key) to a US qwerty keyboard layout (see chrome://settings/languages; Compose Key in English (US))
-
-See the following link for a list of the supported combinations:
- http://www.hermit.org/Linux/ComposeKeys.html
+This adds a compose key (right alt key) to a US qwerty keyboard layout (see chrome://settings/languages; Compose Key in English (US))
 
 How to use:
- - press shift and right ctrl key
+ - press right alt key
  - release
  - type a combination
  - if there is a match the conversion will happen automatically otherwise you get what you typed
