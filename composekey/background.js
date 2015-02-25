@@ -400,6 +400,8 @@ var lut = {
 "=E": "\u20ac", // EuroSign # EURO SIGN
 "^SM": "\u2120", // SERVICE MARK
 "^TM": "\u2122", // TRADE MARK SIGN
+"<-": "\u2190", // LEFTWARDS ARROW
+"->": "\u2192", // RIGHTWARDS ARROW
 "\\\\": "\u301d", // REVERSED DOUBLE PRIME QUOTATION MARK
 "//": "\u301e", // DOUBLE PRIME QUOTATION MARK
 };
