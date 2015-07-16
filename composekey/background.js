@@ -16,9 +16,9 @@ limitations under the License.
 var AltGr = { PLAIN: "plain", ALTERNATE: "alternate" };
 var Shift = { PLAIN: "plain", SHIFTED: "shifted" };
 
-var States = { WAITING_FOR_COMPOSE_KEY_0: 0, WAITING_FOR_COMPOSE_KEY_1: 1, COMPOSING : 2}; 
+var States = { WAITING_FOR_COMPOSE_KEY: 0, COMPOSING : 1};
 
-var state = States.WAITING_FOR_COMPOSE_KEY_0;
+var state = States.WAITING_FOR_COMPOSE_KEY;
 var contextID = -1;
 var keysMemory = [];
 var sequenceMaxLength = 3;
@@ -407,7 +407,7 @@ var lut = {
 };
     
 function initialize(currentContextID) {
-    state = States.WAITING_FOR_COMPOSE_KEY_0;
+    state = States.WAITING_FOR_COMPOSE_KEY;
     contextID = currentContextID;
     keysMemory = [];
  
@@ -442,7 +442,8 @@ function isPureModifier(keyData) {
   return (keyData.key == "Shift") || (keyData.key == "Ctrl") || (keyData.key == "Alt");
 }
 
-function clearComposition() {
+function resetComposition() {
+  state = States.WAITING_FOR_COMPOSE_KEY;
   keysMemory = [];
 }
 
@@ -463,7 +464,7 @@ function unravelComposition() {
         chrome.input.ime.commitText({"contextID": contextID, "text": lut[composition]});   
   }
   
-  clearComposition();
+  resetComposition();
 }
 
 
@@ -471,30 +472,31 @@ chrome.input.ime.onKeyEvent.addListener(
     function(engineID, keyData) {
       var handled = false;
       
-      switch (state) {
-        case States.WAITING_FOR_COMPOSE_KEY_0:
-          if (keyData.code == "AltRight" && keyData.type == "keydown") {
-            state = States.WAITING_FOR_COMPOSE_KEY_1;
-          }
-          break;
-        case States.WAITING_FOR_COMPOSE_KEY_1:
-          if (keyData.code == "AltRight" && keyData.type == "keyup") {
+      var isComposeKeyDownEvent = (keyData.code == "AltRight" && keyData.type == "keydown");
+      if (isComposeKeyDownEvent) {
+        switch (state) {
+          case States.WAITING_FOR_COMPOSE_KEY:
             state = States.COMPOSING;
-          } else {
-            state = States.WAITING_FOR_COMPOSE_KEY_0;
-          }
-          break;
-        case States.COMPOSING:
-            if (memorizeKey(keyData)) {
-             handled = true;
-             if (compositionDone()) {
-                unravelComposition();
-                state = States.WAITING_FOR_COMPOSE_KEY_0;
-             }
-            }
+            handled = true;
             break;
-        default:
+          case States.COMPOSING:
+            // Break out of Compose mode on extra Compose key press.
+            resetComposition();
+            handled = true;
             break;
+          default:
+            break;
+        }
+        return handled;
+      }
+
+      if (state == States.COMPOSING) {
+        if (memorizeKey(keyData)) {
+         handled = true;
+         if (compositionDone()) {
+            unravelComposition();
+         }
+        }
       }
       
       return handled;

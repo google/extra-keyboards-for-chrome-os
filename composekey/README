@@ -2,9 +2,10 @@ This adds a compose key (right alt key) to a US qwerty keyboard layout (see chro
 
 How to use:
  - press right alt key
- - release
+ - release (possibly after you started typing a combination)
  - type a combination
  - if there is a match the conversion will happen automatically otherwise you get what you typed
+ - you can abort the compose mode by pressing the compose key again
 
 ** Full list of supported sequences **
 Format: output sequence(s) comment
