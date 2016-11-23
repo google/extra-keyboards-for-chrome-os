@@ -24,7 +24,7 @@ var keysMemory = [];
 var sequenceMaxLength = 3;
 
 var lut = {
-" ": "\u00a0", // nobreakspace # NO-BREAK SPACE
+"  ": "\u00a0", // nobreakspace # NO-BREAK SPACE
 "!!": "\u00a1", // exclamdown # INVERTED EXCLAMATION MARK
 "|c": "\u00a2", // CENT SIGN
 "c|": "\u00a2", // CENT SIGN
@@ -62,6 +62,7 @@ var lut = {
 "..": "\u00b7", // MIDDLE DOT
 ", ": "\u00b8", // cedilla # CEDILLA
 " ,": "\u00b8", // cedilla # CEDILLA
+",,": "\u00b8", // cedilla # CEDILLA
 "^1": "\u00b9", // SUPERSCRIPT ONE
 "^_o": "\u00ba", // MASCULINE ORDINAL INDICATOR
 ">>": "\u00bb", // guillemotright # RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
@@ -398,8 +399,10 @@ var lut = {
 "=c": "\u20ac", // EuroSign # EURO SIGN
 "E=": "\u20ac", // EuroSign # EURO SIGN
 "=E": "\u20ac", // EuroSign # EURO SIGN
-"^SM": "\u2120", // SERVICE MARK
-"^TM": "\u2122", // TRADE MARK SIGN
+"sm": "\u2120", // SERVICE MARK
+"SM": "\u2120", // SERVICE MARK
+"tm": "\u2122", // TRADE MARK SIGN
+"TM": "\u2122", // TRADE MARK SIGN
 "<-": "\u2190", // LEFTWARDS ARROW
 "->": "\u2192", // RIGHTWARDS ARROW
 "\\\\": "\u301d", // REVERSED DOUBLE PRIME QUOTATION MARK
