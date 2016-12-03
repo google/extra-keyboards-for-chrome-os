@@ -29,7 +29,8 @@ Format: output sequence(s) comment
 ³	^3	SUPERSCRIPT THREE
 µ	mu	MICRO SIGN
 ¶	p! "P!" "PP"	paragraph # PILCROW SIGN
-·	..	MIDDLE DOT
+·	.-	MIDDLE DOT
+…	..	HORIZONTAL ELLIPSIS
 ¸	,  " ,"	cedilla # CEDILLA
 ¹	^1	SUPERSCRIPT ONE
 º	^_o	MASCULINE ORDINAL INDICATOR
@@ -341,5 +342,5 @@ Format: output sequence(s) comment
 〞	/"	DOUBLE PRIME QUOTATION MARK
 <- ← LEFTWARDS ARROW
 -> → RIGHTWARDS ARROW
-⸘	?!	INVERTED INTERROBANG
 ‽	!?	INTERROBANG
+⸘	?!	INVERTED INTERROBANG

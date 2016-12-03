@@ -59,7 +59,8 @@ var lut = {
 "p!": "\u00b6", // paragraph # PILCROW SIGN
 "P!": "\u00b6", // paragraph # PILCROW SIGN
 "PP": "\u00b6", // paragraph # PILCROW SIGN
-"..": "\u00b7", // MIDDLE DOT
+".-": "\u00b7", // MIDDLE DOT
+"..": "\u2026", // HORIZONTAL ELLIPSIS
 ", ": "\u00b8", // cedilla # CEDILLA
 " ,": "\u00b8", // cedilla # CEDILLA
 "^1": "\u00b9", // SUPERSCRIPT ONE
