@@ -404,6 +404,8 @@ var lut = {
 "^TM": "\u2122", // TRADE MARK SIGN
 "<-": "\u2190", // LEFTWARDS ARROW
 "->": "\u2192", // RIGHTWARDS ARROW
+"=/": "\u2260", // NOT EQUAL TO
+"/=": "\u2260", // NOT EQUAL TO
 "?!": "\u2e18", // INVERTED INTERROBANG
 "\\\\": "\u301d", // REVERSED DOUBLE PRIME QUOTATION MARK
 "//": "\u301e", // DOUBLE PRIME QUOTATION MARK
