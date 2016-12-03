@@ -31,7 +31,7 @@ Format: output sequence(s) comment
 ¶	p! "P!" "PP"	paragraph # PILCROW SIGN
 ·	.-	MIDDLE DOT
 …	..	HORIZONTAL ELLIPSIS
-¸	,  " ,"	cedilla # CEDILLA
+¸	,, ", " " ,"	cedilla # CEDILLA
 ¹	^1	SUPERSCRIPT ONE
 º	^_o	MASCULINE ORDINAL INDICATOR
 »	>>	guillemotright # RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
@@ -336,14 +336,12 @@ Format: output sequence(s) comment
 ₩	W= "=W"	WON SIGN
 ₫	d-	DONG SIGN
 €	C= "=C" "c=" "=c" "E=" "=E"	EuroSign # EURO SIGN
-℠	^SM	SERVICE MARK
-™	^TM	TRADE MARK SIGN
+℠	SM "sm"	SERVICE MARK
+™	TM "tm"	TRADE MARK SIGN
 〝	\"	REVERSED DOUBLE PRIME QUOTATION MARK
 〞	/"	DOUBLE PRIME QUOTATION MARK
 ←	<-	LEFTWARDS ARROW
 →	->	RIGHTWARDS ARROW
-<- ← LEFTWARDS ARROW
--> → RIGHTWARDS ARROW
 ‽	!?	INTERROBANG
 ⸘	?!	INVERTED INTERROBANG
 ≠	/= "=/"	NOT EQUAL TO
