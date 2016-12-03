@@ -59,7 +59,8 @@ var lut = {
 "p!": "\u00b6", // paragraph # PILCROW SIGN
 "P!": "\u00b6", // paragraph # PILCROW SIGN
 "PP": "\u00b6", // paragraph # PILCROW SIGN
-"..": "\u00b7", // MIDDLE DOT
+".-": "\u00b7", // MIDDLE DOT
+"..": "\u2026", // HORIZONTAL ELLIPSIS
 ", ": "\u00b8", // cedilla # CEDILLA
 " ,": "\u00b8", // cedilla # CEDILLA
 "^1": "\u00b9", // SUPERSCRIPT ONE
@@ -349,6 +350,7 @@ var lut = {
 "%o": "\u2030", // PER MILLE SIGN
 ".<": "\u2039", // SINGLE LEFT-POINTING ANGLE QUOTATION MARK
 ".>": "\u203a", // SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
+"!?": "\u203d", // INTERROBANG
 "^0": "\u2070", // SUPERSCRIPT ZERO
 "^_i": "\u2071", // SUPERSCRIPT LATIN SMALL LETTER I
 "^4": "\u2074", // SUPERSCRIPT FOUR
@@ -404,6 +406,7 @@ var lut = {
 "->": "\u2192", // RIGHTWARDS ARROW
 "=/": "\u2260", // NOT EQUAL TO
 "/=": "\u2260", // NOT EQUAL TO
+"?!": "\u2e18", // INVERTED INTERROBANG
 "\\\\": "\u301d", // REVERSED DOUBLE PRIME QUOTATION MARK
 "//": "\u301e", // DOUBLE PRIME QUOTATION MARK
 };
