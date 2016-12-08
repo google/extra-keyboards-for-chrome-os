@@ -1,0 +1,13 @@
+This adds a Slovak QWERTY keyboard layout to Chrome OS (See Slovak language in chrome://setting/languages)
+
+How to install:
+ 1. go to chrome://extensions
+ 2. click on Load unpacked extensions...
+ 3. pick the folder containing the manifest for the extension you want to enable
+ 4. logout / login
+ 5. head over to chrome://settings/languages
+ 6. add the relevant language (e.g. French for the bepo keyboard layout)
+ 7. check the relevant keyboard layout / input method
+ 8. optionally, remove any un-needed keyboard layouts / input methods
+
+ Author: Matus Marcin (http://matusmarcin.com)
