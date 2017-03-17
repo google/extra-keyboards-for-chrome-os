@@ -29,7 +29,7 @@ Output | Sequence | Comment
 £ | -L | POUND SIGN
 ¤ | ox | currency # CURRENCY SIGN
 ¤ | xo | currency # CURRENCY SIGN
-¥ | Y | yen # YEN SIGN
+¥ | Y= | yen # YEN SIGN
 ¥ | =Y | yen # YEN SIGN
 ¦ | !^ | brokenbar # BROKEN BAR
 § | so | section # SECTION SIGN
