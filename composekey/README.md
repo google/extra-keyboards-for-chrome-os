@@ -55,6 +55,7 @@ Output | Sequence | Comment
 ¶ | P! | paragraph # PILCROW SIGN
 ¶ | PP | paragraph # PILCROW SIGN
 · | .- | MIDDLE DOT
+• | .= | BULLET
 … | .. | HORIZONTAL ELLIPSIS
 ¸ | ,, | cedilla # CEDILLA
 ¸ | ", " | cedilla # CEDILLA

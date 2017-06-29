@@ -60,6 +60,7 @@ var lut = {
 "P!": "\u00b6", // paragraph # PILCROW SIGN
 "PP": "\u00b6", // paragraph # PILCROW SIGN
 ".-": "\u00b7", // MIDDLE DOT
+".=": "\u2022", // BULLET
 "..": "\u2026", // HORIZONTAL ELLIPSIS
 ", ": "\u00b8", // cedilla # CEDILLA
 " ,": "\u00b8", // cedilla # CEDILLA
