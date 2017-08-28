@@ -1,13 +1,14 @@
 {
   "name": "ComposeKey",
-  "version": "1.4",
+  "version": "1.5",
   "manifest_version": 2,
   "description": "Compose Key for Chrome OS",
   "background": {
     "scripts": ["background.js"]
   },
   "permissions": [
-    "input"
+    "input",
+    "storage"
   ],
   "input_components": [
     {
@@ -18,5 +19,9 @@
       "language": "en-US",
       "layouts": ["us"]
     }
-  ]
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  }
 }
