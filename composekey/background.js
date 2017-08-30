@@ -686,13 +686,26 @@ function unravelComposition() {
   resetComposition();
 }
 
+var composeKey = localStorage.getItem('key')
+
+function setKey(key) {
+  composeKey = key;
+  localStorage.setItem('key', key);
+  console.log('set key to ' + key);
+}
+
+if (!composeKey) {
+  chrome.storage.sync.get({ key: 'AltRight' }, function(saved) {
+    if (!composeKey) {
+      setKey(saved.key);
+    }
+  });
+}
 
 chrome.input.ime.onKeyEvent.addListener(
     function(engineID, keyData) {
       var handled = false;
-      
-      var isComposeKeyDownEvent = (keyData.code == "AltRight" && keyData.type == "keydown");
-      if (isComposeKeyDownEvent) {
+      if (keyData.code == composeKey && keyData.type == "keydown") {
         switch (state) {
           case States.WAITING_FOR_COMPOSE_KEY:
             state = States.COMPOSING;
@@ -715,6 +728,8 @@ chrome.input.ime.onKeyEvent.addListener(
          if (compositionDone()) {
             unravelComposition();
          }
+        } else if (keyData.code == composeKey && keyData.type == "keyup") {
+          handled = true;
         }
       }
       
