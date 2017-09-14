@@ -1,20 +1,39 @@
-These are extra keyboard layouts / input methods for Chrome OS.
+# Extra Keyboards for Chrome OS
 
-How to install:
- 1. go to chrome://extensions
- 2. click on Load unpacked extensions...
- 3. pick the folder containing the manifest for the extension you want to enable
- 4. logout / login
- 5. head over to chrome://settings/languages
- 6. add the relevant language (e.g. French for the bepo keyboard layout)
- 7. check the relevant keyboard layout / input method
- 8. optionally, remove any un-needed keyboard layouts / input methods
+A collection of extra keyboard layouts and input methods for Chrome OS. Each
+directory is its own Chrome extension.
 
-How to use:
- 1. alt shift to cycle through all the enabled keyboard layouts / input methods
- 2. type away
- 3. ctrl space to toggle between the most recently used keyboard layouts / input methods
+## Installation
+### Github
 
-Known limitations:
- - These extensions are not allowed on the login/lock screen
- - These extensions are not allowed on password fields
+1. Go to chrome://extensions.
+2. Click on "Load unpacked extensions...".
+3. Pick the directory containing the manifest for the extension you want to
+enable.
+4. Logout and then login again. (This may not be necessary.)
+5. Go to chrome://settings/languages.
+6. Add the relevant language, e.g. French for the bepo keyboard layout.
+7. Select the relevant keyboard layout and input method.
+8. Optionally, remove any keyboard layouts or input methods that are no longer
+required.
+
+### Chrome Web Store
+
+Several of the extensions are available on the [Chrome Web Store](http://chrome.google.com/webstore/).
+Note that the version on the webstore may not be as up-to-date as on GitHub.
+
+- [ComposeKey](https://chrome.google.com/webstore/detail/composekey/iijdllfdmhbmlmnbcohgbfagfibpbgba)
+- [UK Extended](https://chrome.google.com/webstore/detail/uk-extended/pkbdliadhfopgfdhbldifaakplenbpnd)
+- [Programmer Dvorak](https://chrome.google.com/webstore/detail/programmer-dvorak/mogcmmflienoigckdgnkkkafbgkaecbj)
+- [Polish Dvorak](https://chrome.google.com/webstore/detail/polish-dvorak/gikieikejljogkfjbijjplfhbmhbmfkf)
+- [Dvorak right](https://chrome.google.com/webstore/detail/dvorak-right/ibmblmkjihglholefminaiddohamopnn)
+
+## How to Use
+
+1. Press Ctrl + Shift + Space to cycle through the enabled keyboard languages.
+2. Type away…
+3. Ctrl + Space to toggle between the most recently used keyboard languages.
+
+## Known Limitations
+-   These extensions are not allowed on the login/lock screen.
+-   These extensions are not allowed on password fields.
