@@ -4,7 +4,7 @@ A collection of extra keyboard layouts and input methods for Chrome OS. Each
 directory is its own Chrome extension.
 
 ## Installation
-### Github
+### GitHub
 
 1. Go to chrome://extensions.
 2. Click on "Load unpacked extensions...".
@@ -35,5 +35,5 @@ Note that the version on the webstore may not be as up-to-date as on GitHub.
 3. Ctrl + Space to toggle between the most recently used keyboard languages.
 
 ## Known Limitations
--   These extensions are not allowed on the login/lock screen.
--   These extensions are not allowed on password fields.
+- These extensions are not allowed on the login/lock screen.
+- These extensions are not allowed on password fields.
