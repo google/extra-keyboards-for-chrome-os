@@ -15,7 +15,7 @@
       "name": "Compose Key",
       "type": "ime",
       "id": "compose_key",
-      "description": "Adds a compose key (RightAlt) functionality to Chrome OS",
+      "description": "Adds Compose key functionality to Chrome OS",
       "language": "en-US",
       "layouts": ["us"]
     }
