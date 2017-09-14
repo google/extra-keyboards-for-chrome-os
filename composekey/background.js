@@ -13,8 +13,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-var AltGr = { PLAIN: "plain", ALTERNATE: "alternate" };
-var Shift = { PLAIN: "plain", SHIFTED: "shifted" };
 
 var States = { WAITING_FOR_COMPOSE_KEY: 0, COMPOSING : 1};
 
@@ -625,14 +623,12 @@ var lut = {
 "\\\\": "\u301d", // REVERSED DOUBLE PRIME QUOTATION MARK
 "//": "\u301e", // DOUBLE PRIME QUOTATION MARK
 };
-    
-function initialize(currentContextID) {
-    state = States.WAITING_FOR_COMPOSE_KEY;
-    contextID = currentContextID;
-    keysMemory = [];
- 
-}
 
+function initialize(currentContextID) {
+  state = States.WAITING_FOR_COMPOSE_KEY;
+  contextID = currentContextID;
+  keysMemory = [];
+}
 
 chrome.input.ime.onFocus.addListener(function(context) {
   initialize(context.contextID);
@@ -648,13 +644,12 @@ function isPrintableKey(key) {
 }
 
 function memorizeKey(keyData) {
- if (keyData.type == "keyup" || isPureModifier(keyData)) return false;
- 
+  if (keyData.type == "keyup" || isPureModifier(keyData)) return false;
+
   if (isPrintableKey(keyData.key)) {
     keysMemory.push(keyData.key);
     return true;
   }
-  
   return false;
 }
 
@@ -675,15 +670,14 @@ function compositionDone() {
   var composition = getComposition();
   return (lut[composition] != undefined) || composition.length > sequenceMaxLength;
 }
-  
+
 function unravelComposition() {
   var handled = false;
   var composition = getComposition();
-  
+
   if (lut[composition]) {
-        chrome.input.ime.commitText({"contextID": contextID, "text": lut[composition]});   
+    chrome.input.ime.commitText({"contextID": contextID, "text": lut[composition]});
   }
-  
   resetComposition();
 }
 
@@ -703,36 +697,34 @@ if (!composeKey) {
   });
 }
 
-chrome.input.ime.onKeyEvent.addListener(
-    function(engineID, keyData) {
-      var handled = false;
-      if (keyData.code == composeKey && keyData.type == "keydown") {
-        switch (state) {
-          case States.WAITING_FOR_COMPOSE_KEY:
-            state = States.COMPOSING;
-            handled = true;
-            break;
-          case States.COMPOSING:
-            // Break out of Compose mode on extra Compose key press.
-            resetComposition();
-            handled = true;
-            break;
-          default:
-            break;
-        }
-        return handled;
-      }
+chrome.input.ime.onKeyEvent.addListener(function(engineID, keyData) {
+  var handled = false;
+  if (keyData.code == composeKey && keyData.type == "keydown") {
+    switch (state) {
+      case States.WAITING_FOR_COMPOSE_KEY:
+        state = States.COMPOSING;
+        handled = true;
+        break;
+      case States.COMPOSING:
+        // Break out of Compose mode on extra Compose key press.
+        resetComposition();
+        handled = true;
+        break;
+      default:
+        break;
+    }
+    return handled;
+  }
 
-      if (state == States.COMPOSING) {
-        if (memorizeKey(keyData)) {
-         handled = true;
-         if (compositionDone()) {
-            unravelComposition();
-         }
-        } else if (keyData.code == composeKey && keyData.type == "keyup") {
-          handled = true;
-        }
+  if (state == States.COMPOSING) {
+    if (memorizeKey(keyData)) {
+      handled = true;
+      if (compositionDone()) {
+        unravelComposition();
       }
-      
-      return handled;
+    } else if (keyData.code == composeKey && keyData.type == "keyup") {
+      handled = true;
+    }
+  }
+  return handled;
 });
