@@ -7,13 +7,18 @@ The key sequences used are the same as [Xlib](https://www.x.org/releases/X11R7.7
 for the en_US.UTF-8 locale (though this extension currently does not support the
 full set defined by Xlib).
 
+## Configuration
+
+By default the right Alt key is configured as the Compose key. The key may be
+changed in the extension configuration page.
+
 ## How to use
 
-1. Press and release the right Alt key.
-2. Type the desired sequence as defined below. (If there is a match the
-   conversion will happen automatically.)
-3. You can abort compose mode any time after entering the mode by pressing right
-   Alt again.
+1. Press and release the Compose key (default is right Alt).
+2. Type the desired key sequence as defined below. The proper character will be
+   displayed when a key sequence is matched.
+3. You can abort compose mode any time after entering the mode by pressing the
+   Compose key again.
 
 ## Full list of supported sequences
 
