@@ -173,7 +173,7 @@ if (!chrome.input.ime) {
 
     commitText: (parameters, callback) => {
       const text = parameters.text;
-      console.debug('commitText: ', text);
+      console.debug('commitText:', JSON.stringify(text));
 
       var textEvent = document.createEvent('TextEvent');
       textEvent.initTextEvent('textInput',
@@ -241,5 +241,7 @@ if (!chrome.input.ime) {
         document.activeElement.dispatchEvent(event);
       }
     },
+
+    keyEventHandled: () => {},
   };
 }

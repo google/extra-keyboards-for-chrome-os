@@ -42,19 +42,78 @@ function restore() {
   if (key.value != backgroundPage.composeKey) {
     key.value = backgroundPage.composeKey;
   }
+
+  let composeFileElem = document.getElementById('composeFile');
+  if (composeFileElem.value != backgroundPage.composeFile) {
+    composeFileElem.value = backgroundPage.composeFile;
+  }
 }
 document.addEventListener('DOMContentLoaded', restore);
 backgroundPage.onComposeKeyLoaded = restore;
+backgroundPage.onComposeFileLoaded = restore;
 
 document.getElementById('key')
   .addEventListener('change', (event) => {
     if (event.target.value != backgroundPage.composeKey) {
       backgroundPage.storeKey(event.target.value);
     }
-  },{passive: true});
+  }, {passive: true});
 
 function updateComposeFile() {
   let content = document.getElementById('composeFile').value;
   if (content != backgroundPage.composeFile)
     backgroundPage.storeComposeFile(content);
 }
+
+window.onunload = updateComposeFile;
+document.getElementById('composeFile')
+  .addEventListener('blur', updateComposeFile, {passive: true});
+
+document.getElementById('loadComposeFileButton')
+  .addEventListener('click', () => {
+    document.getElementById('loadComposeFile').click();
+  }, {passive: true});
+
+document.getElementById('loadComposeFile')
+  .addEventListener('change', (event) => {
+    if (event.target.files.length == 0) return;
+
+    let f = event.target.files[0];
+    let r = new FileReader();
+    r.onload = () => {
+      document.getElementById('composeFile').value = r.result;
+      updateComposeFile();
+    };
+    r.readAsText(f);
+  }, {passive: true});
+
+document.getElementById('saveComposeFile')
+  .addEventListener('click', () => {
+    let a = document.createElement("a");
+    a.style = "display: none";
+    a.href = window.URL.createObjectURL(
+      new Blob([backgroundPage.composeFile],
+               {type: "application/octet-stream"}));
+    a.download = ".XCompose";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(a.href);
+    a.remove();
+  }, {passive: true});
+
+document.getElementById('resetComposeFile')
+  .addEventListener('click', () => {
+    document.getElementById('confirmResetDialog').style.display = 'block';
+  }, {passive: true});
+
+document.getElementById('confirmResetComposeFile')
+  .addEventListener('click', () => {
+    backgroundPage.clearComposeFile();
+    restore();
+    document.getElementById('confirmResetDialog').style.display = 'none';
+  }, {passive: true})
+
+document.getElementById('cancelResetComposeFile')
+  .addEventListener('click', () => {
+    document.getElementById('confirmResetDialog').style.display = 'none';
+  }, {passive: true})
