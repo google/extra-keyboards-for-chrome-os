@@ -14,14 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var States = { WAITING_FOR_COMPOSE_KEY: 0, COMPOSING : 1};
-
-var state = States.WAITING_FOR_COMPOSE_KEY;
-var contextID = -1;
-var keysMemory = [];
-var sequenceMaxLength = 3;
-
-var lut = {
+/** @type {Object<string, string>} */
+let builtinSequences = {
 "  ": "\u00a0", // nobreakspace # NO-BREAK SPACE
 "!!": "\u00a1", // exclamdown # INVERTED EXCLAMATION MARK
 "|c": "\u00a2", // CENT SIGN
@@ -624,107 +618,224 @@ var lut = {
 "//": "\u301e", // DOUBLE PRIME QUOTATION MARK
 };
 
-function initialize(currentContextID) {
-  state = States.WAITING_FOR_COMPOSE_KEY;
-  contextID = currentContextID;
-  keysMemory = [];
-}
-
-chrome.input.ime.onFocus.addListener(function(context) {
-  initialize(context.contextID);
+let contextID = -1;
+chrome.input.ime.onFocus.addListener((context) => {
+  state = rootState;
+  contextID = context.contextID;
 });
 
-chrome.input.ime.onBlur.addListener(function(context) {
-  initialize(-1);
-});
+class EventState {
+  constructor() {
+    /** @type {?string} */
+    this.result = null;
 
-function isPrintableKey(key) {
-  var charCode = key.charCodeAt(0);
-  return charCode >= 32 && charCode <= 126;
-}
-
-function memorizeKey(keyData) {
-  if (keyData.type == "keyup" || isPureModifier(keyData)) return false;
-
-  if (isPrintableKey(keyData.key)) {
-    keysMemory.push(keyData.key);
-    return true;
+    /**
+     * Maps key names to the state matching that key.
+     *
+     * @type {Object<string, EventState>}
+     */
+    this.nextKeys = {};
   }
-  return false;
-}
 
-function isPureModifier(keyData) {
-  return (keyData.key == "Shift") || (keyData.key == "Ctrl") || (keyData.key == "Alt");
-}
-
-function resetComposition() {
-  state = States.WAITING_FOR_COMPOSE_KEY;
-  keysMemory = [];
-}
-
-function getComposition() {
-  return keysMemory.join("");
-}
-
-function compositionDone() {
-  var composition = getComposition();
-  return (lut[composition] != undefined) || composition.length > sequenceMaxLength;
-}
-
-function unravelComposition() {
-  var handled = false;
-  var composition = getComposition();
-
-  if (lut[composition]) {
-    chrome.input.ime.commitText({"contextID": contextID, "text": lut[composition]});
+  /**
+   * @param {string} key The JavaScript key name.
+   */
+  addEvent(key) {
+    let state = this.nextKeys[key];
+    if (!state) {
+      state = new EventState();
+    }
+    return state;
   }
-  resetComposition();
 }
 
-var composeKey = localStorage.getItem('key')
+/**
+ * @param {EventState} root
+ */
+function addBuiltinSequences(root) {
+  let added = 0;
+  for (let [seq, string] of Object.entries(builtinSequences)) {
+    let state = root.addEvent('Compose');
+
+    for (let key of seq) {
+      state = state.addEvent(key);
+    }
+
+    if (state == null) continue;
+
+    state.result = string;
+    added += 1;
+  }
+
+  console.log('Added %d built-in sequences.', added);
+}
+
+/**
+ * The JavaScript key code to use for the Compose key.
+ * @type {?string}
+ */
+var composeKey = localStorage.getItem('key');
 
 function setKey(key) {
   composeKey = key;
   localStorage.setItem('key', key);
-  console.log('set key to ' + key);
+  console.log('set key to ', key);
 }
 
+function storeKey(key) {
+  setKey(key);
+
+  chrome.storage.sync.set({ key: key }, () => {
+    if (chrome.runtime.lastError) {
+      console.warn('Failed to store key to Chrome sync: ',
+                   chrome.runtime.lastError);
+      return;
+    }
+
+    console.log('Stored key as %s.', key);
+  });
+}
+
+/** @type {function(string)} */
+var onComposeKeyLoaded = null;
+
 if (!composeKey) {
-  chrome.storage.sync.get({ key: 'AltRight' }, function(saved) {
-    if (!composeKey) {
-      setKey(saved.key);
+  chrome.storage.sync.get({key: 'AltRight'}, (stored) => {
+    if (chrome.runtime.lastError) {
+      console.warn('Failed to load compose key from Chrome sync: ',
+                   chrome.runtime.lastError);
+      return
+    }
+
+    if (stored.key && !composeKey) {
+      setKey(stored.key);
+      onComposeKeyLoaded(composeKey);
     }
   });
 }
 
-chrome.input.ime.onKeyEvent.addListener(function(engineID, keyData) {
-  var handled = false;
-  if (keyData.code == composeKey && keyData.type == "keydown") {
-    switch (state) {
-      case States.WAITING_FOR_COMPOSE_KEY:
-        state = States.COMPOSING;
-        handled = true;
-        break;
-      case States.COMPOSING:
-        // Break out of Compose mode on extra Compose key press.
-        resetComposition();
-        handled = true;
-        break;
-      default:
-        break;
+/**
+ * The initial state at the root of all sequences.
+ * @type {EventState}
+ */
+let rootState = new EventState();
+addBuiltinSequences(rootState);
+
+/**
+ * @type {EventState}
+ */
+let state = rootState;
+/**
+ * If true, we have consumed one or more key events since the last reset.
+ * @type {boolean}
+ */
+let composing = false;
+
+/** @type {Set<string>} */
+let keyDownSuppressed = new Set();
+
+/**
+ * If true, trigger a compose event if we receive a keyup for the compose key.
+ * @type {boolean}
+ */
+let composeOnKeyUp = false;
+
+/**
+ * The set of Javascript key events that correspond to modifier keys.
+ * @type {Set<string>}
+ */
+const modifierKeys = Object.freeze(new Set([
+  'Alt',
+  'AltGraph',
+  'CapsLock',
+  'Control',
+  'Ctrl', // https://crbug.com/826538
+  'Fn',
+  'FnLock',
+  'Hyper',
+  'Meta',
+  'NumLock',
+  'ScrollLock',
+  'Shift',
+  'Super',
+  'Symbol',
+  'SymbolLock',
+]));
+
+chrome.input.ime.onKeyEvent.addListener((engineID, keyData) => {
+  const suppress = true;
+  const propagate = false;
+
+  const key = keyData.key;
+
+  // If the compose key is a non-locking modifier, fire the compose event on
+  // keyup so that it still works as a modifier. (Pressing some other key while
+  // holding the compose key cancels the compose-on-key-up action.)
+  //
+  // Otherwise, fire the compose event on keydown so that we correctly suppress
+  // its regular action.
+  //
+  // On ChromeOS, the Meta key by itself is an accelerator, so don't treat it as
+  // a transient modifier.
+  const isModifier = modifierKeys.has(key);
+  const isLock = isModifier && key.endsWith('Lock');
+
+  let isComposeEvent = false;
+  if (keyData.code == composeKey) {
+    if (keyData.type == 'keyup') {
+      isComposeEvent = composeOnKeyUp;
+    } else {
+      if (isModifier && !isLock) {
+        composeOnKeyUp = true;
+        // If we're not sure whether to treat the keystroke as a compose key or
+        // a modifier, bias toward waiting for the compose key. Explicit
+        // modifier events in XCompose sequences are exceedingly rare.
+        return propagate;
+      }
+      isComposeEvent = true;
     }
-    return handled;
+  } else if (keyData.type == 'keydown') {
+    composeOnKeyUp = false;
   }
 
-  if (state == States.COMPOSING) {
-    if (memorizeKey(keyData)) {
-      handled = true;
-      if (compositionDone()) {
-        unravelComposition();
-      }
-    } else if (keyData.code == composeKey && keyData.type == "keyup") {
-      handled = true;
+  if (keyData.type == 'keyup' && !isComposeEvent) {
+    if (keyDownSuppressed.has(key)) {
+      keyDownSuppressed.delete(key);
+      return suppress;
     }
+    return propagate;
   }
-  return handled;
-});
+
+  const stateKey = isComposeEvent ? 'Compose' : key;
+  let nextState = state.nextKeys[stateKey] || null;
+
+  if (nextState && (nextState.result != null)) {
+    const finalResult = nextState.result;
+    chrome.input.ime.commitText({
+      contextID: contextID,
+      text: finalResult,
+    });
+    state = rootState;
+    composing = false;
+  } else if (nextState) {
+    state = nextState;
+    composing = true;
+  } else {
+    // The key does not extend any candidate sequence. If we haven't consumed
+    // any keystrokes yet, or the key is a modifier for the next keystroke,
+    // propagate it; otherwise, suppress it as normal.
+    if (!composing || (isModifier && !isComposeEvent)) {
+      return propagate;
+    }
+
+    state = rootState;
+    composing = false;
+  }
+
+  if (isModifier && !isLock) return propagate;
+
+  if (keyData.type == 'keydown') {
+    keyDownSuppressed.add(key);
+  }
+  return suppress;
+})

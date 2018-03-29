@@ -1,22 +1,60 @@
-function saveAndSync() {
-  var key = document.getElementById('key').value;
-  chrome.extension.getBackgroundPage().setKey(key);
+/*
+Copyright 2014 Google Inc. All rights reserved.
 
-  chrome.storage.sync.set({ key: key }, function() {
-    console.log("sync'd key as " + key);
-  })
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+let backgroundPage = chrome.extension
+    ? chrome.extension.getBackgroundPage()
+    : this;
+
+if (!chrome.extension) {
+  // We've loaded options.html without actually being in an extension,
+  // presumably in order to test it.
+  // Fake an extension environment by loading background.js explicitly.
+  for (let src of ['fakes.js', 'background.js']) {
+    let script = document.createElement('script');
+    script.src = src;
+    script.onload = restore;
+    document.body.appendChild(script);
+  }
+}
+
+for (let eventType of ['keydown', 'keypress', 'keyup', 'textInput']) {
+  document.getElementById('testArea')
+    .addEventListener(eventType, (event) => {
+      console.log('testArea ', eventType, ": ", event)
+    }, {passive: true})
 }
 
 function restore() {
-  document.getElementById('key').value =
-      chrome.extension.getBackgroundPage().composeKey;
-  document.addEventListener('storage', function(event) {
-    var old = document.getElementById('key').value;
-    if (event.key == 'key' && event.newValue != old) {
-      document.getElementById('key').value = event.newValue;
-    }
-  })
+  let key = document.getElementById('key');
+  if (key.value != backgroundPage.composeKey) {
+    key.value = backgroundPage.composeKey;
+  }
 }
-
 document.addEventListener('DOMContentLoaded', restore);
-document.getElementById('key').addEventListener('input', saveAndSync);
+backgroundPage.onComposeKeyLoaded = restore;
+
+document.getElementById('key')
+  .addEventListener('change', (event) => {
+    if (event.target.value != backgroundPage.composeKey) {
+      backgroundPage.storeKey(event.target.value);
+    }
+  },{passive: true});
+
+function updateComposeFile() {
+  let content = document.getElementById('composeFile').value;
+  if (content != backgroundPage.composeFile)
+    backgroundPage.storeComposeFile(content);
+}
