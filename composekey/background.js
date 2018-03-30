@@ -1014,8 +1014,8 @@ class Result {
    * @param {?string} keysym
    */
   constructor(string, keysym) {
-    if (!string) {
-      const key = symToEvent(keysym).key;
+    if (string == null) {
+      const key = parseUnicodeSym(keysym) || symToEvent(keysym).key;
       if (!(/^\w{2,}$/.test(key))) {
         // The key is not plausible as a named key attribute value.
         // Treat it as a Unicode string.
@@ -1030,7 +1030,7 @@ class Result {
   }
 
   send(keyData) {
-    if (this.string) {
+    if (this.string != null) {
       chrome.input.ime.commitText({
         contextID: contextID,
         text: this.string,
