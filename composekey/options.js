@@ -42,19 +42,30 @@ function restore() {
   if (key.value != backgroundPage.composeKey) {
     key.value = backgroundPage.composeKey;
   }
+  let keepModifier = document.getElementById('keepModifier');
+  if (keepModifier.checked != backgroundPage.keepModifier) {
+    keepModifier.checked = backgroundPage.keepModifier;
+  }
 }
 document.addEventListener('DOMContentLoaded', restore);
 backgroundPage.onComposeKeyLoaded = restore;
 
-document.getElementById('key')
-  .addEventListener('change', (event) => {
-    if (event.target.value != backgroundPage.composeKey) {
-      backgroundPage.storeKey(event.target.value);
-    }
-  },{passive: true});
-
-function updateComposeFile() {
-  let content = document.getElementById('composeFile').value;
-  if (content != backgroundPage.composeFile)
-    backgroundPage.storeComposeFile(content);
+function keyChanged() {
+  let key = document.getElementById('key').value;
+  let keepModifierLabel = document.getElementById('keepModifierLabel');
+  if (key == 'ContextMenu') {
+    keepModifierLabel.style.display = 'none';
+    keepModifier = false;
+  } else {
+    keepModifierLabel.style.display = 'unset';
+    keepModifier = document.getElementById('keepModifier').checked;
+  }
+  backgroundPage.storeKey({
+    key: key,
+    keepModifier: keepModifier,
+  });
 }
+document.getElementById('key')
+  .addEventListener('change', keyChanged, {passive: true});
+document.getElementById('keepModifier')
+  .addEventListener('change', keyChanged, {passive: true});

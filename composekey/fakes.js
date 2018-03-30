@@ -191,7 +191,7 @@ if (!chrome.input.ime) {
 
       let element = document.activeElement;
 
-      if (element.selectionStart !== undefined) {
+      if (element.selectionStart != null) {
         let scrollTop = element.scrollTop;
         let prefix = element.value.substring(0, element.selectionStart);
         let suffix = element.value.substring(element.selectionEnd, element.value.length);
@@ -241,5 +241,7 @@ if (!chrome.input.ime) {
         document.activeElement.dispatchEvent(event);
       }
     },
+
+    keyEventHandled: () => {},
   };
 }
