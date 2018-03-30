@@ -1291,25 +1291,36 @@ function parseComposeFile(composeFile) {
  * @type {?string}
  */
 var composeKey = localStorage.getItem('key');
+/**
+ * If true (the default) and composeKey is set to a modifier, retain the
+ * modifier's original behavior.
+ * @type {?boolean}
+ */
+var keepModifier = localStorage.getItem('keepModifier');
 
-function setKey(key) {
-  composeKey = key;
-  localStorage.setItem('key', key);
+function setKey(settings) {
+  composeKey = settings.key;
+  keepModifier = settings.keepModifier;
+  localStorage.setItem('key', settings.key);
+  localStorage.setItem('keepModifier', settings.keepModifier);
   resetState();
-  console.log('set key to', key);
+  console.log('set key to ', settings);
 }
 
-function storeKey(key) {
-  setKey(key);
+/**
+ * @param {{key: string, keepModifier: boolean}} settings
+ */
+function storeKey(settings) {
+  setKey(settings);
 
-  chrome.storage.sync.set({ key: key }, () => {
+  chrome.storage.sync.set(settings, () => {
     if (chrome.runtime.lastError) {
       console.warn('Failed to store key to Chrome sync:',
                    chrome.runtime.lastError);
       return;
     }
 
-    console.log('Stored key as %s.', key);
+    console.log('Stored key settings as ', settings);
   });
 }
 
@@ -1317,15 +1328,20 @@ function storeKey(key) {
 var onComposeKeyLoaded = null;
 
 if (!composeKey) {
-  chrome.storage.sync.get({key: 'AltRight'}, (stored) => {
+  chrome.storage.sync.get({
+    key: 'AltRight',
+    // Default to keeping the modifier: otherwise, the default AltRight compose
+    // key conflicts with AltGr in international layouts.
+    keepModifier: true,
+  }, (stored) => {
     if (chrome.runtime.lastError) {
       console.warn('Failed to load compose key from Chrome sync:',
                    chrome.runtime.lastError);
       return
     }
 
-    if (stored.key && !composeKey) {
-      setKey(stored.key);
+    if (!composeKey) {
+      setKey(stored);
       onComposeKeyLoaded(composeKey);
     }
   });
@@ -1491,7 +1507,7 @@ chrome.input.ime.onKeyEvent.addListener((engineID, keyData) => {
   //
   // On ChromeOS, the Meta key by itself is an accelerator, so don't treat it as
   // a transient modifier.
-  const isModifier = modifierKeys.has(key);
+  let isModifier = modifierKeys.has(key);
   const isLock = isModifier && key.endsWith('Lock');
 
   let isComposeEvent = false;
@@ -1499,14 +1515,14 @@ chrome.input.ime.onKeyEvent.addListener((engineID, keyData) => {
     if (keyData.type == 'keyup') {
       isComposeEvent = composeOnKeyUp;
     } else {
-      if (isModifier && !isLock) {
+      if (isModifier && keepModifier) {
         composeOnKeyUp = true;
-        // If we're not sure whether to treat the keystroke as a compose key or
-        // a modifier, bias toward waiting for the compose key. Explicit
-        // modifier events in XCompose sequences are exceedingly rare.
+        // Propagate the modifier event so that the key will correctly modify
+        // other keystrokes.
         return propagate;
       }
       isComposeEvent = true;
+      isModifier = false;
     }
   } else if (keyData.type == 'keydown') {
     composeOnKeyUp = false;
@@ -1537,9 +1553,7 @@ chrome.input.ime.onKeyEvent.addListener((engineID, keyData) => {
       // The key does not extend any candidate sequence. If we haven't consumed
       // any keystrokes yet, or the key is a modifier for the next keystroke,
       // propagate it; otherwise, suppress it as normal.
-      if (!composing || (isModifier && !isComposeEvent)) {
-        return propagate;
-      }
+      if (!composing || isModifier) return propagate;
 
       states = [rootState];
       composing = false;
@@ -1547,8 +1561,11 @@ chrome.input.ime.onKeyEvent.addListener((engineID, keyData) => {
     }
 
     if (finalResult != null) {
-      // Work around https://crbug.com/826884.
-      chrome.input.ime.keyEventHandled(keyData.requestId, !isModifier || isLock);
+      // Work around https://crbug.com/826884: suppress the keystroke
+      // before calling commitText instead of waiting until we return.
+      if (!isModifier || isLock) {
+        chrome.input.ime.keyEventHandled(keyData.requestId, true);
+      }
 
       finalResult.send(keyData);
       states = [rootState];
