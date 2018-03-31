@@ -25,6 +25,18 @@
       button { margin: 4px; }
       #confirmResetDialog { display: none; }
       input[type='file'] { display: none; }
+
+      #errors, #warnings {
+        display: none;
+        margin: 1em 0;
+        padding: 1ex;
+      }
+      .error p, .warning  p {
+        margin: 0;
+        padding: 0 1em;
+      }
+      #errors { border: thin solid red; }
+      #warnings { border: thin solid brown; }
     </style>
   </head>
   <body>
@@ -103,6 +115,8 @@
         Sequences with unsupported output keysyms will be dropped
         unless the result also specifies a string.
       </p>
+      <div id="errors"></div>
+      <div id="warnings"></div>
       <textarea id="composeFile" cols=100 rows=100></textarea>
     </section>
 

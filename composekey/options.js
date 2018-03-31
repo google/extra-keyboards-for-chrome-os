@@ -22,12 +22,15 @@ if (!chrome.extension) {
   // We've loaded options.html without actually being in an extension,
   // presumably in order to test it.
   // Fake an extension environment by loading background.js explicitly.
-  for (let src of ['fakes.js', 'background.js']) {
-    let script = document.createElement('script');
-    script.src = src;
-    script.onload = restore;
-    document.body.appendChild(script);
-  }
+  let fakes = document.createElement('script');
+  fakes.src = 'fakes.js';
+  fakes.onload = () => {
+    let background = document.createElement('script');
+    background.src = 'background.js';
+    background.onload = restore;
+    document.body.appendChild(background);
+  };
+  document.body.appendChild(fakes);
 }
 
 for (let eventType of ['keydown', 'keypress', 'keyup', 'textInput']) {
@@ -51,6 +54,7 @@ function restore() {
   let composeFileElem = document.getElementById('composeFile');
   if (composeFileElem.value != backgroundPage.composeFile) {
     composeFileElem.value = backgroundPage.composeFile;
+    updateComposeFileStatus();
   }
 }
 document.addEventListener('DOMContentLoaded', restore);
@@ -81,6 +85,7 @@ function updateComposeFile() {
   let content = document.getElementById('composeFile').value;
   if (content != backgroundPage.composeFile) {
     backgroundPage.storeComposeFile(content);
+    updateComposeFileStatus();
   }
 }
 
@@ -90,7 +95,9 @@ document.getElementById('composeFile')
 
 document.getElementById('loadComposeFileButton')
   .addEventListener('click', () => {
-    document.getElementById('loadComposeFile').click();
+    let elem = document.getElementById('loadComposeFile');
+    elem.value = null;
+    elem.click();
   }, {passive: true});
 
 document.getElementById('loadComposeFile')
@@ -136,3 +143,47 @@ document.getElementById('cancelResetComposeFile')
   .addEventListener('click', () => {
     document.getElementById('confirmResetDialog').style.display = 'none';
   }, {passive: true});
+
+function updateComposeFileStatus() {
+  const errors = document.getElementById('errors');
+  const warnings = document.getElementById('warnings');
+  for (let elem of [errors, warnings]) {
+    elem.innerHTML = '';
+    elem.style.display = 'none';
+  }
+
+  const status = backgroundPage.fileStatus;
+  if (!status) return;
+
+  if (status.errors.length > 0) {
+    errors.insertAdjacentText('beforeend', 'Errors:');
+    for (let error of status.errors) {
+      let div = document.createElement('div');
+      div.classList.add('error');
+      let code = document.createElement('code');
+      code.insertAdjacentText('beforeend', error.line);
+      div.appendChild(code);
+      let p = document.createElement('p');
+      p.insertAdjacentText('beforeend', error.message);
+      div.appendChild(p);
+      errors.appendChild(div);
+    }
+    errors.style.display = 'block';
+  }
+
+  if (status.warnings.length > 0) {
+    warnings.insertAdjacentText('beforeend', 'Warnings:');
+    for (let warning of status.warnings) {
+      let div = document.createElement('div');
+      div.classList.add('warning');
+      let code = document.createElement('code');
+      code.insertAdjacentText('beforeend', warning.line);
+      div.appendChild(code);
+      let p = document.createElement('p');
+      p.insertAdjacentText('beforeend', warning.message);
+      div.appendChild(p);
+      warnings.appendChild(div);
+    }
+    warnings.style.display = 'block';
+  }
+}

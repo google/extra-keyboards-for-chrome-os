@@ -929,7 +929,7 @@ function eventToSyms(keyData) {
         syms.push(['U' + pad + hex]);
       }
       if (syms.length == 0) {
-        throw new Error('No syms for key name:', key)
+        throw new Error('no syms for key name:', key)
       }
       return syms;
     }
@@ -1094,8 +1094,10 @@ class EventState {
  * sequences that are an exact prefix of the new sequence.
  * @param {EventState} root
  * @param {{events: Array<{mods: Modifiers, sym: string}>, result: Result}} sequence
+ * @return {{warning: ?string}}
  */
 function addSequence(root, sequence) {
+  let warning = null;
   let finalState = root;
   let prefixStates = [root];
   for (let event of sequence.events) {
@@ -1106,9 +1108,13 @@ function addSequence(root, sequence) {
 
         nextPrefixStates.push(candidate);
         if (candidate.result) {
+          let str = candidate.result.keysym;
+          if (candidate.result.string != null) {
+            str = '“' + candidate.result.string + '”';
+          }
+          warning =
+            'Suppressed existing sequence with result (' + str + ').';
           candidate.result = null;
-          console.log('Removed conflicting sequence for', sequence, ':',
-                      candidate.result);
         }
       }
     }
@@ -1117,7 +1123,12 @@ function addSequence(root, sequence) {
     finalState = finalState.addEvent(event);
   }
 
+  if (Object.keys(finalState.nextKeys).length > 0) {
+    warning = 'New sequence is a prefix of existing sequence(s).';
+  }
   finalState.result = sequence.result;
+
+  return {warning: warning};
 }
 
 /**
@@ -1188,14 +1199,14 @@ function parseEvent(line) {
         mods.meta = val;
         break;
       default:
-        throw new Error('Unreachable default case.');
+        throw new Error('unreachable default case');
       }
     }
     mods = mods.equals(modifiersAny) ? modifiersAny : Object.freeze(mods);
   }
 
   if (!(match = /\s*<(\w+)>/.exec(rest))) {
-    throw new Error('Missing or invalid keysym in event.');
+    throw new Error('missing or invalid keysym in event');
   }
   rest = rest.substring(match[0].length);
   const sym = match[1];
@@ -1230,7 +1241,7 @@ function parseSequence(line) {
   let string = match[1];
   const sym = match[2];
   if (string == null && sym == null) {
-    throw new Error('Missing or invalid result in sequence definition.');
+    throw new Error('missing or invalid result in sequence definition');
   }
 
   if (string) {
@@ -1246,17 +1257,35 @@ function parseSequence(line) {
 }
 
 /**
+ * @type {{
+ *   warnings: Array<{line: string, message: string}>,
+ *   errors: Array<{line: string, message: string}>,
+ * }} */
+var fileStatus = {
+  warnings: [],
+  errors: [],
+};
+
+/**
  * Parses a file in XCompose format to an EventState tree.
  *
  * @param {string} composeFile
- * @return {EventState}
+ * @return {{
+ *   root: EventState,
+ *   warnings: Array<{line: string, message: string}>,
+ *   errors: Array<{line: string, message: string}>,
+ * }}
  */
 function parseComposeFile(composeFile) {
   let root = new EventState(modifiersAny);
+  let warnings = [];
+  let errors = [];
 
   let lines = composeFile.split('\n');
+  let lineNumber = 0;
   let numCustom = 0;
   for (let line of lines) {
+    lineNumber += 1;
     line = line.trim();
     if (line.length == 0 || /^(#.*)?$/.test(line)) {
       // Empty or comment-only line.
@@ -1271,18 +1300,25 @@ function parseComposeFile(composeFile) {
     let sequence;
     try {
       sequence = parseSequence(line);
-    } catch (err) {
-      console.warn('Ignoring invalid sequence line "%s":', line, err);
+    } catch (error) {
+      errors.push({line: line, message: error.message});
       continue;
     }
-    addSequence(root, sequence);
+    let result = addSequence(root, sequence);
+    if (result.warning) {
+      warnings.push({line: line, message: result.warning});
+    }
     numCustom += 1;
   }
 
   if (numCustom > 0) {
     console.log('Added %d custom sequences.', numCustom);
   }
-  return root;
+  return {
+    root: root,
+    warnings: warnings,
+    errors: errors,
+  };
 }
 
 
@@ -1362,8 +1398,17 @@ var composeFile = defaultComposeFile;
 let rootState = new EventState(modifiersAny);
 
 function setComposeFile(content) {
+  fileStatus = {
+    warnings: [],
+    errors: [],
+  };
   composeFile = content;
-  rootState = parseComposeFile(composeFile);
+  let parsed = parseComposeFile(composeFile);
+  rootState = parsed.root;
+  fileStatus = {
+    warnings: parsed.warnings,
+    errors: parsed.errors,
+  };
   resetState();
 }
 
@@ -1388,7 +1433,8 @@ function storeComposeFile(content) {
     // instead of loading an outdated configuration from sync.
     chrome.storage.sync.remove('composeFile', () => {
       if (chrome.runtime.lastError) {
-        console.warn('Failed to remove stored compose file from Chrome sync.');
+        console.warn('Failed to remove stored compose file from Chrome sync:',
+                      chrome.runtime.lastError);
       }
     });
   });
@@ -1398,7 +1444,7 @@ function clearComposeFile() {
   localStorage.removeItem('composeFile');
   chrome.storage.sync.remove('composeFile');
   setComposeFile(defaultComposeFile);
-  console.log('Cleared stored compose file.');
+  console.log('Compose file reset to default.');
 }
 
 /** @type {function(string)} */
