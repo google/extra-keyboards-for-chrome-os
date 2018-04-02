@@ -1054,9 +1054,13 @@ class Result {
 class EventState {
   /**
    * @param {Modifiers} mods
+   * @param {boolean} builtin
    */
-  constructor(mods) {
+  constructor(mods, builtin) {
     this.mods = Object.freeze(mods);
+
+    /** True if all sequences that pass through this state are built-in. */
+    this.builtin = builtin;
 
     /** @type {?Result} */
     this.result = null;
@@ -1071,19 +1075,29 @@ class EventState {
   }
 
   /**
-   * @param {{mods: Modifiers, sym: string}}
+   * @param {{mods: Modifiers, sym: string}} event
+   * @param {boolean} builtin
    */
-  addEvent(event) {
+  addEvent(event, builtin) {
+    if (!builtin) {
+      this.builtin = false;
+    }
+
     let states = this.nextKeys[event.sym];
     if (states) {
       let last = states[states.length-1];
-      if (last.mods.equals(event.mods)) return last;
+      if (last.mods.equals(event.mods)) {
+        if (!builtin) {
+          last.builtin = false;
+        }
+        return last;
+      }
     } else {
       states = [];
       this.nextKeys[event.sym] = states;
     }
 
-    let state = new EventState(event.mods);
+    let state = new EventState(event.mods, builtin);
     states.push(state);
     return state;
   }
@@ -1093,7 +1107,11 @@ class EventState {
  * Adds the given sequence to root, pruning out the results of any existing
  * sequences that are an exact prefix of the new sequence.
  * @param {EventState} root
- * @param {{events: Array<{mods: Modifiers, sym: string}>, result: Result}} sequence
+ * @param {{
+ *   events: Array<{mods: Modifiers, sym: string}>,
+ *   result: Result,
+ *   builtin: boolean,
+ * }} sequence
  * @return {{warning: ?string}}
  */
 function addSequence(root, sequence) {
@@ -1104,27 +1122,33 @@ function addSequence(root, sequence) {
     let nextPrefixStates = [];
     for (let state of prefixStates) {
       for (let candidate of (state.nextKeys[event.sym] || [])) {
-        if (!candidate.mods.equals(event.mods)) continue
+        if (!candidate.mods.equals(event.mods)) continue;
 
         nextPrefixStates.push(candidate);
-        if (candidate.result) {
-          let str = candidate.result.keysym;
-          if (candidate.result.string != null) {
-            str = '“' + candidate.result.string + '”';
-          }
-          warning =
-            'Suppressed existing sequence with result (' + str + ').';
-          candidate.result = null;
+        if (candidate.builtin || !candidate.result) continue;
+
+        let str = candidate.result.keysym;
+        if (candidate.result.string != null) {
+          str = '“' + candidate.result.string + '”';
         }
+        warning = 'Suppressed existing sequence with result (' + str + ').';
+        candidate.result = null;
       }
     }
     prefixStates = nextPrefixStates;
 
-    finalState = finalState.addEvent(event);
+    finalState = finalState.addEvent(event, sequence.builtin);
   }
 
-  if (Object.keys(finalState.nextKeys).length > 0) {
-    warning = 'New sequence is a prefix of existing sequence(s).';
+  for (let suffixStates of Object.values(finalState.nextKeys)) {
+    if (warning != null) break;
+    for (let state of suffixStates) {
+      if (state != finalState && !state.builtin) {
+        console.warn('New sequence is a prefix of existing sequence(s):', state);
+        warning = 'New sequence is a prefix of existing sequence(s).';
+        break;
+      }
+    }
   }
   finalState.result = sequence.result;
 
@@ -1150,7 +1174,11 @@ function addBuiltinSequences(root) {
       }
     }
 
-    addSequence(root, {events: events, result: new Result(string, null)});
+    addSequence(root, {
+      events: events,
+      result: new Result(string, null),
+      builtin: true,
+    });
     added += 1;
   }
 
@@ -1304,6 +1332,7 @@ function parseComposeFile(composeFile) {
       errors.push({line: line, message: error.message});
       continue;
     }
+    sequence.builtin = false;
     let result = addSequence(root, sequence);
     if (result.warning) {
       warnings.push({line: line, message: result.warning});
