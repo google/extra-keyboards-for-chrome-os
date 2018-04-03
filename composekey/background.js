@@ -1275,7 +1275,7 @@ function parseSequence(line) {
   if (string) {
     // Convert octal and hex escapes to the corresponding Unicode strings.
     string = string.replace(
-        /\\(?:(?:0x([0-9a-fA-F]+))|([0-7]+))/, (match, hex, octal) => {
+        /\\(?:(?:0x([0-9a-fA-F]+))|([0-7]+))/g, (match, hex, octal) => {
           return String.fromCodePoint(
             octal ? parseInt(octal, 8) : parseInt(hex, 16));
         });
