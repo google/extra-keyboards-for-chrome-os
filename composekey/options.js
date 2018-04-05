@@ -27,7 +27,23 @@ if (!chrome.extension) {
   fakes.onload = () => {
     let background = document.createElement('script');
     background.src = 'background.js';
-    background.onload = restore;
+    background.onload = () => {
+      let nextContextID = 1;
+      for (let id of ['testArea', 'testDiv']) {
+        const contextID = nextContextID;
+        nextContextID += 1;
+
+        let elem = document.getElementById(id);
+        elem.addEventListener('focus', () => {
+          chrome.input.ime.onFocus.listener({contextID: contextID});
+        });
+        elem.addEventListener('blur', () => {
+          chrome.input.ime.onFocus.listener(contextID);
+        });
+      }
+
+      restore();
+    };
     document.body.appendChild(background);
   };
   document.body.appendChild(fakes);

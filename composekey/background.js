@@ -1001,10 +1001,14 @@ const modifiersNone = Object.freeze(Object.assign(new Modifiers(), {
   capsLock: false,
 }));
 
-let contextID = -1;
+let contextID = 0;
 chrome.input.ime.onFocus.addListener((context) => {
   resetState();
   contextID = context.contextID;
+});
+chrome.input.ime.onBlur.addListener(() => {
+  resetState();
+  contextID = 0;
 });
 
 class Result {
@@ -1030,24 +1034,42 @@ class Result {
   }
 
   send(keyData) {
-    if (this.string != null) {
+    if (this.string != null && contextID != 0) {
       chrome.input.ime.commitText({
         contextID: contextID,
         text: this.string,
+      }, () => {
+        if (chrome.runtime.lastError) {
+          console.error('Error committing text:', chrome.runtime.lastError);
+        }
       });
       return;
     }
 
-    let eventInit = symToEvent(this.keysym);
-    eventInit.prototype = keyData;
+    if (this.keysym == null) return;
+
+    // Work around https://crbug.com/829396: instead of constructing a real
+    // KeyboardEvent, send an object that just vaguely resembles one.
+    const eventPrototype = Object.assign({}, keyData);
+    delete eventPrototype.extensionId;
+    delete eventPrototype.keyCode;
+    const symEvent = symToEvent(this.keysym);
+    delete symEvent.location;
+    Object.assign(eventPrototype, symEvent);
+
+    const down = Object.assign({}, eventPrototype);
+    down.type = 'keydown';
+    const up = Object.assign({}, keyData);
+    up.type = 'keyup';
 
     chrome.input.ime.sendKeyEvents({
       contextID: contextID,
-      keyData: [
-        new KeyboardEvent('keydown', eventInit),
-        new KeyboardEvent('keyup', eventInit),
-      ],
-    })
+      keyData: [down, up],
+    }, () => {
+      if (chrome.runtime.lastError) {
+        console.error('Error sending key events:', chrome.runtime.lastError);
+      }
+    });
   }
 }
 
