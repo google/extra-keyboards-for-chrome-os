@@ -857,8 +857,55 @@ function lengthInCodepoints(str) {
  */
 function eventToSyms(keyData) {
   let key = keyData.key;
-  if (key == 'Ctrl') {
-    key = 'Control'; // https://crbug.com/826538
+  switch (key) {
+    case 'Ctrl':
+      key = 'Control'; // https://crbug.com/826538
+      break;
+
+    case 'Esc':
+      key = 'Escape'; // https://crbug.com/826538
+      break;
+
+    case '\u007f':
+      key = 'Delete'; // https://crbug.com/830854
+      break;
+
+    case '\r':
+      key = 'Enter';
+      break;
+
+    case '\u0000':
+      switch (keyData.code) {
+        case 'ContextMenu':
+        case 'End':
+        case 'Home':
+        case 'Insert':
+        case 'MediaPlayPause':
+        case 'MetaLeft':
+        case 'MetaRight':
+        case 'PageDown':
+        case 'PageUp':
+        case 'Pause':
+        case 'PrintScreen':
+        case 'ScrollLock':
+          // https://crbug.com/830854
+          key = keyData.code;
+          break;
+
+        default:
+          // Probably a dead key (https://crbug.com/831194), but the
+          // chrome.input.ime API does not give us its current mapping.
+          key = 'Unidentified';
+          break;
+      }
+
+    case '':
+      key = 'Unidentified';
+      break;
+  }
+
+  if (/^F\d(?:\d?)$/.test(keyData.code)) {
+    key = keyData.code; // https://crbug.com/831202
   }
 
   let location = keyData.location;
@@ -868,46 +915,46 @@ function eventToSyms(keyData) {
     // they're remapped from someplace weird.
     // See https://www.w3.org/TR/uievents/#events-keyboard-key-location.
     switch (key) {
-    case 'Shift':
-    case 'Control':
-    case 'Alt':
-    case 'Meta':
-      location = keyData.code.endsWith('Right')
-        ? KeyboardEvent.DOM_KEY_LOCATION_RIGHT
-        : KeyboardEvent.DOM_KEY_LOCATION_LEFT;
-      break;
+      case 'Shift':
+      case 'Control':
+      case 'Alt':
+      case 'Meta':
+        location = keyData.code.endsWith('Right')
+          ? KeyboardEvent.DOM_KEY_LOCATION_RIGHT
+          : KeyboardEvent.DOM_KEY_LOCATION_LEFT;
+        break;
 
-    case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-    case '.':
-    case 'Enter':
-    case '+':
-    case '-':
-    case '*':
-    case '/':
-    case 'ArrowDown':
-    case 'ArrowLeft':
-    case 'ArrowRight':
-    case 'ArrowUp':
-    case 'Home':
-    case 'End':
-    case 'PageDown':
-    case 'PageUp':
-      location = keyData.code.startsWith('Numpad')
-        ? KeyboardEvent.DOM_KEY_LOCATION_NUMPAD
-        : KeyboardEvent.DOM_KEY_LOCATION_STANDARD;
-      break;
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+      case '.':
+      case 'Enter':
+      case '+':
+      case '-':
+      case '*':
+      case '/':
+      case 'ArrowDown':
+      case 'ArrowLeft':
+      case 'ArrowRight':
+      case 'ArrowUp':
+      case 'Home':
+      case 'End':
+      case 'PageDown':
+      case 'PageUp':
+        location = keyData.code.startsWith('Numpad')
+          ? KeyboardEvent.DOM_KEY_LOCATION_NUMPAD
+          : KeyboardEvent.DOM_KEY_LOCATION_STANDARD;
+        break;
 
-    default:
-      location = KeyboardEvent.DOM_KEY_LOCATION_STANDARD;
+      default:
+        location = KeyboardEvent.DOM_KEY_LOCATION_STANDARD;
     }
   }
 
@@ -1634,6 +1681,7 @@ chrome.input.ime.onKeyEvent.addListener((engineID, keyData) => {
   }
 
   const syms = isComposeEvent ? ['Multi_key'] : eventToSyms(keyData);
+
   for (let sym of syms) {
     let nextStates = [];
     let finalResult = null;
