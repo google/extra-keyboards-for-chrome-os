@@ -875,6 +875,7 @@ function eventToSyms(keyData) {
       break;
 
     case '\u0000':
+    case '':
       switch (keyData.code) {
         case 'ContextMenu':
         case 'End':
@@ -898,10 +899,6 @@ function eventToSyms(keyData) {
           key = 'Unidentified';
           break;
       }
-
-    case '':
-      key = 'Unidentified';
-      break;
   }
 
   if (/^F\d(?:\d?)$/.test(keyData.code)) {
