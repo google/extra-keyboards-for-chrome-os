@@ -41,7 +41,10 @@ function restore() {
   let key = document.getElementById('key');
   if (key.value != backgroundPage.composeKey) {
     key.value = backgroundPage.composeKey;
+    document.getElementById('keepModifierLabel').style.display =
+        (key.value == 'ContextMenu') ? 'none' : 'unset';
   }
+
   let keepModifier = document.getElementById('keepModifier');
   if (keepModifier.checked != backgroundPage.keepModifier) {
     keepModifier.checked = backgroundPage.keepModifier;
@@ -51,18 +54,15 @@ document.addEventListener('DOMContentLoaded', restore);
 backgroundPage.onComposeKeyLoaded = restore;
 
 function keyChanged() {
-  let key = document.getElementById('key').value;
-  let keepModifierLabel = document.getElementById('keepModifierLabel');
-  if (key == 'ContextMenu') {
-    keepModifierLabel.style.display = 'none';
-    keepModifier = false;
-  } else {
-    keepModifierLabel.style.display = 'unset';
-    keepModifier = document.getElementById('keepModifier').checked;
-  }
+  let key = document.getElementById('key');
+  document.getElementById('keepModifierLabel').style.display =
+      (key.value == 'ContextMenu') ? 'none' : 'unset';
+
+  let keepModifier = document.getElementById('keepModifier');
+
   backgroundPage.storeKey({
-    key: key,
-    keepModifier: keepModifier,
+    key: key.value,
+    keepModifier: keepModifier.checked,
   });
 }
 document.getElementById('key')
