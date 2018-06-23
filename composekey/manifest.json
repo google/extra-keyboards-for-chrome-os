@@ -1,6 +1,6 @@
 {
   "name": "ComposeKey",
-  "version": "1.5",
+  "version": "1.6",
   "manifest_version": 2,
   "description": "Compose Key for Chrome OS",
   "background": {
@@ -12,12 +12,100 @@
   ],
   "input_components": [
     {
-      "name": "Compose Key",
+      "name": "Compose Key (US)",
       "type": "ime",
       "id": "compose_key",
-      "description": "Adds Compose key functionality to Chrome OS",
+      "description": "Adds Compose key functionality to the US keyboard.",
       "language": "en-US",
       "layouts": ["us"]
+    },
+    {
+      "name": "Compose Key (US International)",
+      "type": "ime",
+      "id": "compose_key_us_intl",
+      "description": "Adds Compose key functionality to the US International keyboard.",
+      "language": "en-US",
+      "layouts": ["us(intl)"]
+    },
+    {
+      "name": "Compose Key (US International (PC))",
+      "type": "ime",
+      "id": "compose_key_us_alt_intl",
+      "description": "Adds Compose key functionality to the US International (PC) keyboard.",
+      "language": "en-US",
+      "layouts": ["us(intl_pc)"]
+    },
+    {
+      "name": "Compose Key (US Extended)",
+      "type": "ime",
+      "id": "compose_key_us_extended",
+      "description": "Adds Compose key functionality to the US Extended keyboard.",
+      "language": "en-US",
+      "layouts": ["us(altgr-intl)"]
+    },
+    {
+      "name": "Compose Key (US Dvorak)",
+      "type": "ime",
+      "id": "compose_key_us_dvorak",
+      "description": "Adds Compose key functionality to the US Dvorak keyboard.",
+      "language": "en-US",
+      "layouts": ["us(dvorak)"]
+    },
+    {
+      "name": "Compose Key (US Programmer Dvorak)",
+      "type": "ime",
+      "id": "compose_key_us_dvp",
+      "description": "Adds Compose key functionality to the US Programmer Dvorak keyboard.",
+      "language": "en-US",
+      "layouts": ["us(dvp)"]
+    },
+    {
+      "name": "Compose Key (US Colemak)",
+      "type": "ime",
+      "id": "compose_key_us_colemak",
+      "description": "Adds Compose key functionality to the US Colemak keyboard.",
+      "language": "en-US",
+      "layouts": ["us(colemak)"]
+    },
+    {
+      "name": "Compose Key (US Workman)",
+      "type": "ime",
+      "id": "compose_key_us_workman",
+      "description": "Adds Compose key functionality to the US Workman keyboard.",
+      "language": "en-US",
+      "layouts": ["us(workman)"]
+    },
+    {
+      "name": "Compose Key (US Workman International)",
+      "type": "ime",
+      "id": "compose_key_us_workman_intl",
+      "description": "Adds Compose key functionality to the US Workman International keyboard.",
+      "language": "en-US",
+      "layouts": ["us(workman-intl)"]
+    },
+    {
+      "name": "Compose Key (Canadian English)",
+      "type": "ime",
+      "id": "compose_key_ca_eng",
+      "description": "Adds Compose key functionality to the US Workman keyboard.",
+      "language": "en-CA",
+      "layouts": ["ca(eng)"]
+    },
+    {
+      "name": "Compose Key (UK)",
+      "type": "ime",
+      "id": "compose_key_gb_extd",
+      "description": "Adds Compose key functionality to the UK keyboard.",
+      "language": "en-GB",
+      "layouts": ["gb(extd)"]
+    },
+    {
+      "name": "Compose Key (UK Dvorak)",
+      "type": "ime",
+      "id": "compose_key_gb_dvorak",
+      "description": "Adds Compose key functionality to the US Workman keyboard.",
+      "language": "en-GB",
+      "layouts": ["gb(dvorak)"]
     }
   ],
   "options_ui": {
