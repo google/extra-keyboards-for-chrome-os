@@ -1,0 +1,19 @@
+{
+  "name": "Teclado Brasileiro Nativo",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Leiaute Brasileiro Nativo",
+  "permissions": [
+    "input"
+  ],
+  "input_components": [
+    {
+      "name": "Teclado Brasileiro Nativo",
+      "type": "ime",
+      "id": "nativo_xkb",
+      "description": "Teclado Brasileiro Nativo",  // user visible description
+      "language": "pt-BR",  // The primary language this IME is used for
+      "layouts": ["br(nativo)"]
+    }
+  ]
+}
