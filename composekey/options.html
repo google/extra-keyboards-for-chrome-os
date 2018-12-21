@@ -21,6 +21,22 @@
         padding: 1ex;
       }
       #testDiv { display: none; }
+
+      button { margin: 4px; }
+      #confirmResetDialog { display: none; }
+      input[type='file'] { display: none; }
+
+      #errors, #warnings {
+        display: none;
+        margin: 1em 0;
+        padding: 1ex;
+      }
+      .error p, .warning  p {
+        margin: 0;
+        padding: 0 1em;
+      }
+      #errors { border: thin solid red; }
+      #warnings { border: thin solid brown; }
     </style>
   </head>
   <body>
@@ -50,7 +66,7 @@
         </select>
       </label>
       <label id="keepModifierLabel">
-				<input id="keepModifier" type="checkbox" checked>
+        <input id="keepModifier" type="checkbox" checked>
         Keep modifier
       </label>
       <p>The key to use as the Compose key.</p>
@@ -63,6 +79,45 @@
     <section>
       <textarea id="testArea" rows=5 cols=100>Test here! To write ½, press and release Compose followed by &lt;1&gt; &lt;2&gt;.</textarea>
       <div id="testDiv" contenteditable=true>Test here too!</div>
+    </section>
+    <section>
+      Sequences:
+      <button id="loadComposeFileButton">Load from file</button>
+      <input id="loadComposeFile" type="file">
+      <button id="saveComposeFile">Save to file</button>
+      <button id="resetComposeFile">Reset to default</button>
+      <div id="confirmResetDialog">
+        This will remove the stored compose file! Are you sure?
+        <button id="confirmResetComposeFile">Reset</button>
+        <button id="cancelResetComposeFile">Cancel</button>
+      </div>
+      <p>
+        Configure sequences with a file in
+        <a href="https://www.x.org/releases/current/doc/man/man5/Compose.5.xhtml">XCompose</a>
+        format.
+      </p>
+      <p>
+        Files smaller than 8KB will be synchronized across devices.
+      </p>
+      <p>
+      <p>
+        <code>include "%L"</code> includes the built-in sequences;
+        otherwise, they will be omitted.
+      </p>
+      <p>
+        The shortest matching sequence applies.
+        If multiple sequences match, the last one wins.
+        If a new sequence contains a previously-defined sequence as an
+        <em>exact</em> prefix (including modifiers),
+        the previous sequence is suppressed.
+      </p>
+      <p>
+        Sequences with unsupported output keysyms will be dropped
+        unless the result also specifies a string.
+      </p>
+      <div id="errors"></div>
+      <div id="warnings"></div>
+      <textarea id="composeFile" cols=100 rows=100></textarea>
     </section>
 
     <script src="options.js"></script>

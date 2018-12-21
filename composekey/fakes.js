@@ -154,18 +154,50 @@ if (!chrome.input.ime) {
   const engineID = -1;
 
   chrome.input.ime = {
-    onFocus: { addListener: (callback) => {} },
+    onFocus: {
+      addListener: (callback) => {
+        chrome.input.ime.onFocus.listener = callback;
+      },
+    },
+    onBlur: {
+      addListener: (callback) => {
+        chrome.input.ime.onBlur.listener = callback;
+      },
+    },
+
+    keyEvents: [],
+
+    keyEventHandled: (requestId, handled) => {
+      if (!handled) return;
+
+      const event = chrome.input.ime.keyEvents[parseInt(requestId, 10)];
+      if (!event) {
+        console.error('missing event for requestId:', requestId);
+        return;
+      }
+      if (event.defaultPrevented) return;
+
+      console.log('keyEventHandled: suppressed', event);
+      event.preventDefault();
+      event.stopPropagation();
+    },
 
     onKeyEvent: {
       addListener: (callback) => {
         for (const eventName of ['keydown', 'keyup']) {
           window.addEventListener(eventName, (event) => {
+            const keyEvents = chrome.input.ime.keyEvents;
             event.type = eventName;
-            if (callback(engineID, event)) {
-              console.debug('onKeyEvent: suppressed ', event);
+            event.requestId = '' + keyEvents.length;
+            keyEvents.push(event);
+
+            if (callback(engineID, event) && !event.defaultPrevented) {
+              console.log('onKeyEvent: suppressed', event);
               event.preventDefault();
               event.stopPropagation();
             }
+
+            keyEvents.pop();
           });
         }
       },
@@ -173,7 +205,7 @@ if (!chrome.input.ime) {
 
     commitText: (parameters, callback) => {
       const text = parameters.text;
-      console.debug('commitText: ', text);
+      console.debug('commitText:', JSON.stringify(text));
 
       var textEvent = document.createEvent('TextEvent');
       textEvent.initTextEvent('textInput',
@@ -238,7 +270,8 @@ if (!chrome.input.ime) {
     sendKeyEvents: (parameters, callback) => {
       console.debug('sendKeyEvents: ', parameters.keyData);
       for (let event of parameters.keyData) {
-        document.activeElement.dispatchEvent(event);
+        let realEvent = new KeyboardEvent(event.type, event);
+        document.activeElement.dispatchEvent(realEvent);
       }
     },
 
