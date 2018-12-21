@@ -3,9 +3,10 @@
 This extension turns the right Alt key into a compose key on a US qwerty
 keyboard layout (see chrome://settings/languages; Compose Key in English (US))
 
-The key sequences used are the same as [Xlib](https://www.x.org/releases/current/doc/libX11/i18n/compose/en_US.UTF-8.html)
-for the en_US.UTF-8 locale (though this extension currently does not support the
-full set defined by Xlib).
+The key sequences used are the same as
+[Xlib](https://www.x.org/releases/current/doc/libX11/i18n/compose/en_US.UTF-8.html)
+for the en_US.UTF-8 locale (though the built-in sequences currently do not
+include the full set defined by Xlib).
 
 ## Configuration
 
@@ -15,8 +16,8 @@ and select one of the `Compose Key` input methods.
 Then, open `chrome://settings/languages` and enable the selected method.
 (You may need to sign out and back in first.)
 
-By default, the right Alt key acts as the Compose key. The key may be
-changed in the extension configuration page.
+You can configure which key acts at the Compose key and add custom XCompose
+sequences in the extension's Options page.
 
 ## How to use
 
@@ -26,7 +27,7 @@ changed in the extension configuration page.
 3. You can abort compose mode any time after entering the mode by pressing the
    Escape key.
 
-## Full list of supported sequences
+## Full list of built-in sequences
 
 Output | Sequence | Comment
 ------ | -------- | -------
