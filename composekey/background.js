@@ -1014,6 +1014,7 @@ class Modifiers {
 
   /**
    * @param {KeyboardEvent} keyEvent
+   * @return {bool}
    */
   match(keyEvent) {
     return (this.control === null || this.control == keyEvent.ctrlKey)
@@ -1262,9 +1263,9 @@ function parseEvent(line) {
   let rest = line;
   let match;
   let mods;
-  if ((match = /^\s*None*/.exec(rest))) {
+  if ((match = /^\s*None\s*/.exec(rest))) {
     rest = rest.substring(match[0].length);
-    mode = modifiersNone;
+    mods = modifiersNone;
   } else {
     mods = new Modifiers();
     if ((match = /^\s*[!]/.exec(rest))) {
