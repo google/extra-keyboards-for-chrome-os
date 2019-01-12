@@ -31,10 +31,10 @@ sequences in the extension's Options page.
 
 Output | Sequence | Comment
 ------ | -------- | -------
-  | "  " | nobreakspace # NO-BREAK SPACE (2 spaces)
+&nbsp; | "  " | nobreakspace # NO-BREAK SPACE (2 spaces)
 ¡ | !! | exclamdown # INVERTED EXCLAMATION MARK
-¢ | |c | CENT SIGN
-¢ | c| | CENT SIGN
+¢ | &#124;c | CENT SIGN
+¢ | c&#124; | CENT SIGN
 ¢ | c/ | CENT SIGN
 ¢ | /c | CENT SIGN
 £ | L- | POUND SIGN
@@ -548,7 +548,7 @@ Output | Sequence | Comment
 ỳ | `y | LATIN SMALL LETTER Y WITH GRAVE
 Ỹ | ~Y | LATIN CAPITAL LETTER Y WITH TILDE
 ỹ | ~y | LATIN SMALL LETTER Y WITH TILDE
-  | " ." | PUNCTUATION SPACE
+&puncsp; | " ." | PUNCTUATION SPACE (space period)
 – | --. | EN DASH
 — | --- | EM DASH
 ‘ | <' | LEFT SINGLE QUOTATION MARK
