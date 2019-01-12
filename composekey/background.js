@@ -1612,13 +1612,6 @@ function resetState() {
   composeOnKeyUp = false;
 }
 
-function resetState() {
-  states = rootState;
-  composing = false;
-  keyDownSuppressed = new Set();
-  composeOnKeyUp = false;
-}
-
 /**
  * The set of Javascript key events that correspond to modifier keys.
  * @type {Set<string>}
