@@ -201,7 +201,6 @@ function updateComposeFileStatus() {
     }
     warnings.style.display = 'block';
   }
->>>>>>> 0c81c7acd3733bfc5caf693d2b141cb58109cdb9
 }
 document.getElementById('key')
   .addEventListener('change', keyChanged, {passive: true});
