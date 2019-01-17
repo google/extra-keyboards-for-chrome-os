@@ -1474,7 +1474,9 @@ if (!composeKey) {
 
     if (!composeKey) {
       setKey(stored);
-      onComposeKeyLoaded(composeKey);
+      if (onComposeKeyLoaded !== null) {
+        onComposeKeyLoaded(composeKey);
+      }
     }
   });
 }
