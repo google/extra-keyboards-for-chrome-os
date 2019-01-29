@@ -611,6 +611,9 @@ let builtinSequences = {
 "tm": "\u2122", // TRADE MARK SIGN
 "<-": "\u2190", // LEFTWARDS ARROW
 "->": "\u2192", // RIGHTWARDS ARROW
+"<=": "\u21d0", // LEFTWARDS DOUBLE ARROW
+"=<": "\u21d0", // LEFTWARDS DOUBLE ARROW
+"=>": "\u21d2", // RIGHWARDS DOUBLE ARROW
 "/=": "\u2260", // NOT EQUAL TO
 "=/": "\u2260", // NOT EQUAL TO
 "?!": "\u2e18", // INVERTED INTERROBANG
