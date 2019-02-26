@@ -1431,13 +1431,17 @@ var composeKey = localStorage.getItem('key');
  * modifier's original behavior.
  * @type {?boolean}
  */
-var keepModifier = localStorage.getItem('keepModifier');
+var keepModifier = localStorage.getItem('keepModifier') == "true";
 
 function setKey(settings) {
   composeKey = settings.key;
   keepModifier = settings.keepModifier;
   localStorage.setItem('key', settings.key);
-  localStorage.setItem('keepModifier', settings.keepModifier);
+  if (settings.keepModifier) {
+    localStorage.setItem('keepModifier', "true");
+  } else {
+    localStorage.removeItem('keepModifier');
+  }
   resetState();
   console.log('set key to ', settings);
 }
