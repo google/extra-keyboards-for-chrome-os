@@ -1,0 +1,27 @@
+{
+  "name": "Lushootseed",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Lushootseed (dxʷləšucid) keyboard",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "permissions": [
+    "input"
+  ],
+  "input_components": [
+    {
+      "name": "Lushootseed",
+      "type": "ime",
+      "id": "lushootseed",
+      "description": "Lushootseed (dxʷləšucid) keyboard",
+      "language": "en-US",
+      "layouts": ["us"]
+    }
+  ]
+}
