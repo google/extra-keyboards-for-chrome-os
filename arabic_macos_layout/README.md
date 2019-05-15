@@ -1,0 +1,1 @@
+Arabic keyboard (Mac operating system layout - sometimes called syrian)

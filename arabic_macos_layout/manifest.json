@@ -1,0 +1,22 @@
+{
+  "name": "Arabic (macos layout)",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Arabic keyboard (Mac operating system layout - sometimes called syrian)",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+    "input"
+  ],
+  "input_components": [
+    {
+      "name": "Arabic (macos layout)",
+      "type": "ime",
+      "id": "Arabic_macos_layout",
+      "description": "Arabic keyboard (Mac operating system layout - sometimes called syrian)",
+      "language": "ar",
+      "layouts": ["ar"]
+    }
+  ]
+}
