@@ -626,6 +626,8 @@ Output | Sequence | Comment
 ™ | tm | TRADE MARK SIGN
 ← | <- | LEFTWARDS ARROW
 → | -> | RIGHTWARDS ARROW
+≤ | <= | LESS-THAN OR EQUAL TO
+≥ | >= | GREATER-THAN OR EQUAL TO
 ≠ | /= | NOT EQUAL TO
 ≠ | =/ | NOT EQUAL TO
 ⸘ | ?! | INVERTED INTERROBANG
