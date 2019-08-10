@@ -27,7 +27,7 @@ limitations under the License.
       "id": "3l_xkb",
       "description": "Jack Rosenthal's third layout",  // user visible description
       "language": "en-US",  // The primary language this IME is used for
-      "layouts": ["3l"]
+      "layouts": ["us-3l-cros"]
     }
   ]
 }
