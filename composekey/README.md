@@ -1,7 +1,8 @@
 # Compose Key for Chrome OS
 
-This extension turns the right Alt key into a compose key on a US qwerty
-keyboard layout (see chrome://settings/languages; Compose Key in English (US))
+This extension turns the right Alt key (the trigger key is configurable) into a
+Compose key on a variety of different English keyboard layouts including US,
+Canadian, and UK.
 
 The key sequences used are the same as
 [Xlib](https://www.x.org/releases/current/doc/libX11/i18n/compose/en_US.UTF-8.html)
@@ -10,13 +11,11 @@ include the full set defined by Xlib).
 
 ## Configuration
 
-To enable the Compose key, open `chrome://settings/inputMethods`
-and select one of the `Compose Key` input methods.
+Select the appropriate "Compose key" from the "Input method" options in the
+Settings app. See https://support.google.com/chromebook/answer/1059492 for help
+navigating to this area of the Settings app.
 
-Then, open `chrome://settings/languages` and enable the selected method.
-(You may need to sign out and back in first.)
-
-You can configure which key acts at the Compose key and add custom XCompose
+You can configure which key acts as the Compose key and add custom XCompose
 sequences in the extension's Options page.
 
 ## How to use
