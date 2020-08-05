@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ComposeKey Options</title>
+    <style>
+      * { font-family: sans-serif; }
+      p { max-width: 70ex; }
+      code {
+        font-family: monospace;
+        white-space: nowrap;
+        user-select: all;
+      }
+      body > section {
+        border: thin solid black;
+        padding: 1ex;
+      }
+      textarea, [contenteditable='true'] {
+        font-family: monospace;
+        border: thin solid black;
+        background-color: #F8F8F8;
+        padding: 1ex;
+      }
+      #testDiv { display: none; }
+
+      button { margin: 4px; }
+      #confirmResetDialog { display: none; }
+      input[type='file'] { display: none; }
+
+      #errors, #warnings {
+        display: none;
+        margin: 1em 0;
+        padding: 1ex;
+      }
+      .error p, .warning  p {
+        margin: 0;
+        padding: 0 1em;
+      }
+      #errors { border: thin solid red; }
+      #warnings { border: thin solid brown; }
+    </style>
+  </head>
+  <body>
+    <section>
+      Initial setup:
+      <p>
+        To enable the Compose key, open
+        <code>chrome://settings/inputMethods</code>
+        and select one of the <code>Compose Key</code> input methods.
+      </p>
+      <p>
+        Then, open <code>chrome://settings/languages</code>
+        and enable the selected method.
+        (You may need to sign out and back in first.)
+      </p>
+    </section>
+    <section>
+      <label>Compose Key:
+        <select id="key">
+          <option value="AltRight">Right Alt</option>
+          <option value="AltLeft">Left Alt</option>
+          <option value="ContextMenu">Menu</option>
+          <option value="ShiftRight">Right Shift</option>
+          <option value="ShiftLeft">Left Shift</option>
+          <option value="ControlRight">Right Control</option>
+          <option value="ControlLeft">Left Control</option>
+        </select>
+      </label>
+      <label id="keepModifierLabel">
+        <input id="keepModifier" type="checkbox">
+        Keep modifier
+      </label>
+      <p>The key to use as the Compose key.</p>
+      <p>Changes will affect only the current device.</p>
+      <p>If <q>Keep modifer</q> is checked and the key is an Alt, Shift, or
+        Control key, the key will continue to modify other keystrokes as usual.
+        It will only act as Compose if pressed and released without another
+        intervening keystroke.</p>
+    </section>
+    <section>
+      <textarea id="testArea" rows=5 cols=100>Test here! To write ½, press and release Compose followed by &lt;1&gt; &lt;2&gt;.</textarea>
+      <div id="testDiv" contenteditable=true>Test here too!</div>
+    </section>
+    <section>
+      Sequences:
+      <button id="loadComposeFileButton">Load from file</button>
+      <input id="loadComposeFile" type="file">
+      <button id="saveComposeFile">Save to file</button>
+      <button id="resetComposeFile">Reset to default</button>
+      <div id="confirmResetDialog">
+        This will remove the stored compose file! Are you sure?
+        <button id="confirmResetComposeFile">Reset</button>
+        <button id="cancelResetComposeFile">Cancel</button>
+      </div>
+      <p>
+        Configure sequences with a file in
+        <a href="https://www.x.org/releases/current/doc/man/man5/Compose.5.xhtml">XCompose</a>
+        format.
+      </p>
+      <p>
+        Files smaller than 8KB will be synchronized across devices.
+      </p>
+      <p>
+      <p>
+        <code>include "%L"</code> includes the built-in sequences;
+        otherwise, they will be omitted.
+      </p>
+      <p>
+        The shortest matching sequence applies.
+        If multiple sequences match, the last one wins.
+        If a new sequence contains a previously-defined sequence as an
+        <em>exact</em> prefix (including modifiers),
+        the previous sequence is suppressed.
+      </p>
+      <p>
+        Sequences with unsupported output keysyms will be dropped
+        unless the result also specifies a string.
+      </p>
+      <div id="errors"></div>
+      <div id="warnings"></div>
+      <textarea id="composeFile" cols=100 rows=100></textarea>
+    </section>
+
+    <script src="options.js"></script>
+  </body>
+</html>

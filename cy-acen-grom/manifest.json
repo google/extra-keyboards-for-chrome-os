@@ -1,0 +1,35 @@
+{
+  "name": "AcenGrom",
+  "version": "0.1",
+  "manifest_version": 2,
+  "description": "Acen Grom ar gyfer Chrome OS",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+    "input",
+    "storage"
+  ],
+  "input_components": [
+        {
+      "name": "Acen Grom (UK)",
+      "type": "ime",
+      "id": "acen_grom_gb_extd",
+      "description": "Acen grom ar gyfer allweddell DU/ UK keyboard.",
+      "language": "en-GB",
+      "layouts": ["gb(extd)"]
+    },
+    {
+      "name": "Acen Grom (UK Dvorak)",
+      "type": "ime",
+      "id": "acen_grom_gb_dvorak",
+      "description": "Acen grom ar gyfer allweddell US Workman keyboard.",
+      "language": "en-GB",
+      "layouts": ["gb(dvorak)"]
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  }
+}
