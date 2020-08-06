@@ -1,8 +1,8 @@
 {
-  "name": "AcenGrom",
+  "name": "Cyfansoddwr",
   "version": "0.1",
   "manifest_version": 2,
-  "description": "Acen Grom ar gyfer Chrome OS",
+  "description": "Cyfansoddwr ar gyfer Chrome OS",
   "background": {
     "scripts": ["background.js"]
   },
@@ -12,18 +12,18 @@
   ],
   "input_components": [
         {
-      "name": "Acen Grom (UK)",
+      "name": "Cyfansoddwr (UK)",
       "type": "ime",
       "id": "acen_grom_gb_extd",
-      "description": "Acen grom ar gyfer allweddell DU/ UK keyboard.",
+      "description": "Cyfansoddwr ar gyfer allweddell DU/ UK keyboard.",
       "language": "en-GB",
       "layouts": ["gb(extd)"]
     },
     {
-      "name": "Acen Grom (UK Dvorak)",
+      "name": "Cyfansoddwr (UK Dvorak)",
       "type": "ime",
       "id": "acen_grom_gb_dvorak",
-      "description": "Acen grom ar gyfer allweddell US Workman keyboard.",
+      "description": "Cyfansoddwr ar gyfer allweddell US Workman keyboard.",
       "language": "en-GB",
       "layouts": ["gb(dvorak)"]
     }
