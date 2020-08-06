@@ -28,7 +28,7 @@ limitations under the License.
     {
       "name": "Acen Grom",
       "type": "ime",
-      "id": "uk_extended_ime",
+      "id": "cy_acen_grom_ime",
       "description": "Acen Grom keyboard (backquote acting as a dead key for grave accent",  // user visible description
       "language": "en-GB",  // The primary language this IME is used for
       "layouts": ["gb(extd)"]  // The supported keyboard layouts for this IME (gb(extd) is actually a plain UK keyboard)
