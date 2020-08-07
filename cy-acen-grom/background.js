@@ -15,14 +15,30 @@ limitations under the License.
 */
 var previousCharIsMagic = false;
 var contextID = -1;
-var lut = {"a": "â", "A": "Â", "e": "ê", "E": "Ê", "i": "î", "I":"Î", "o": "ô", "O":"Ô", "u":"û", "U":"Û", "w":"ŵ", "W":"Ŵ", "y":"ŷ", "Y":"Ŷ", "`": "`"};
+var lut = {
+  "a": "\u00e2", 
+  "A": "\u00c2", 
+  "e": "\u00ea", 
+  "E": "\u00ca", 
+  "i": "\u00ec", 
+  "I": "\u00ce", 
+  "o": "\u00f2", 
+  "O": "\u00d4", 
+  "u": "\u00fa", 
+  "U": "\u00db", 
+  "w": "\u0175", 
+  "W": "\u0174", 
+  "y": "\u0177", 
+  "Y": "\u0176", 
+  "`": "\u2018"
+};
 
 chrome.input.ime.onFocus.addListener(function(context) {
   contextID = context.contextID;
 });
 
 function isPureModifier(keyData) {
-  return (keyData.key == "Shift") || (keyData.key == "Ctrl") || (keyData.key == "Alt") || (keyData.key == "Alt");
+  return (keyData.key == "Shift") || (keyData.key == "Ctrl") || (keyData.key == "AltLeft")  || (keyData.key == "AltGraph")|| (keyData.key == "AltRight");
 }
 
 chrome.input.ime.onKeyEvent.addListener(
