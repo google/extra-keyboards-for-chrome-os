@@ -38,7 +38,7 @@ chrome.input.ime.onFocus.addListener(function(context) {
 });
 
 function isPureModifier(keyData) {
-  return (keyData.key == "Shift") || (keyData.key == "Ctrl") || (keyData.key == "AltLeft")  || (keyData.key == "AltGraph")|| (keyData.key == "AltRight");
+  return (keyData.key == "AltGraph")|| (keyData.key == "AltRight");
 }
 
 chrome.input.ime.onKeyEvent.addListener(

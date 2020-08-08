@@ -55,7 +55,8 @@ chrome.input.ime.onKeyEvent.addListener(
         ctrlKey = keyData.ctrlKey;
         keyData.capsLock = false;
         chrome.input.ime.sendKeyEvents({"contextID": contextID, "keyData": [keyData]});
-        lastRemappedKeyEvent = keyData;                                                 handled = true;
+        lastRemappedKeyEvent = keyData;                                                 
+        handled = true;
       } else if (ctrlKey) {
         keyData.ctrlKey = ctrlKey;
         keyData.capsLock = false;
