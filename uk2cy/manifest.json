@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 {
-  "name": "uk->cy",
+  "name": "uk2cy",
   "version": "1.0",
   "manifest_version": 2,
   "description": "Make the UK LeftShift and Enter keys wider",
