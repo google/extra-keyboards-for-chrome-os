@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 {
-  "name": "uk2cy",
+  "name": "uk->cy",
   "version": "1.0",
   "manifest_version": 2,
   "description": "Make the UK LeftShift and Enter keys wider",
@@ -30,8 +30,8 @@ limitations under the License.
       "type": "ime",
       "id": "uk2cy",
       "description": "Make the UK LeftShift and Enter keys wider",  // user visible description
-      "language": "en-GB",  // The primary language this IME is used for
-      "layouts": ["UK"]
+      "language": "en-US",  // The primary language this IME is used for
+      "layouts": ["us"]
     }
   ]
 }
