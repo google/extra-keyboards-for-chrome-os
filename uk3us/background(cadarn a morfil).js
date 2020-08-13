@@ -1,4 +1,3 @@
-// cadarn a morfil
 /*  
 var context_id = -1;
 
@@ -46,6 +45,7 @@ chrome.input.ime.onKeyEvent.addListener(
 });
 */
 
+
  
 // Examples The following code creates an IME that converts typed letters to upper case.
       var context_id = -1;
@@ -65,4 +65,3 @@ chrome.input.ime.onKeyEvent.addListener(
           }
         });
       
-
