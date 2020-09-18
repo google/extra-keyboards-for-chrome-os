@@ -1,0 +1,22 @@
+{
+  "name": "Hawaiian",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Hawaiian keyboard layout",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+    "input"
+  ],
+  "input_components": [
+    {
+      "name": "Hawaiian",
+      "type": "ime",
+      "id": "hawaiian",
+      "description": "Hawaiian keyboard",
+      "language": "en-US",
+      "layouts": ["us"]
+    }
+  ]
+}
