@@ -18,18 +18,23 @@ var ime_api = chrome.input.ime;
 
 var contextID = -1;
 
+// Whether to use the third-level glyphs in the lookup table below. If the user is
+// holding the right Alt (AltGr) key this will be 2, otherwise it will be 0.
+var altGr = 0;
+var shift = 0;
+
 // This is a table of glyphs to output depending on the state of the keyboard
 // when a certain key is pressed. The values are "unshifted", "shifted",
 // "level3 unshifted", and "level3 shifted".
 var lut = {
   "KeyA": ["a", "A", "ā", "Ā"],
-  "KeyE": ["a", "A", "ē", "Ē"],
-  "KeyI": ["a", "A", "ī", "Ī"],
-  "KeyO": ["a", "A", "ō", "Ō"],
-  "KeyU": ["a", "A", "ū", "Ū"],
-  "Quote": ["ʻ", "\"", "'"],
+  "KeyE": ["e", "E", "ē", "Ē"],
+  "KeyI": ["i", "I", "ī", "Ī"],
+  "KeyO": ["o", "O", "ō", "Ō"],
+  "KeyU": ["u", "U", "ū", "Ū"],
+  "Quote": ["ʻ", "\"", "'", undefined],
 };
-    
+
 
 ime_api.onFocus.addListener(
     function(context) {
@@ -40,22 +45,35 @@ ime_api.onBlur.addListener(() => {
     contextID = -1;
 })
 
+function updateAltGr(keyData) {
+  if (keyData.code == "AltRight") {
+    altGr = keyData.type == "keydown" ? 2 : 0;
+  }
+}
+
+function updateShift(keyData) {
+  if (keyData.shiftKey ^ keyData.capsLock) {
+    shift = 1;
+  } else {
+    shift = 0;
+  }
+}
+
 ime_api.onKeyEvent.addListener(
     function(engineID, keyData) {
       var handled = false;
 
+      // Right Alt is the level three switch. If it is currently pressed
+      // then offset the index by 2, else leave it at zero.
+      updateAltGr(keyData);
+      // Need integer value of 0 for unshifted and 1 for shifted. This is used
+      // as an offset in the lookup table index above.
+      updateShift(keyData);
+
       if (keyData.type == "keydown") {
         // Only try to handle the keypress if the key is in the lookup table.
         if (lut[keyData.code]) {
-          // Right Alt is the level three switch. If it is currently pressed
-          // then offset the index by 2, else leave it at zero.
-          let level3 = (keyData.code == "AltRight") ? 2 : 0;
-
-          // Need integer value of 0 for unshifted and 1 for shifted. This is used
-          // as an offset in the lookup table index above.
-          let shifted = keyData.capsLock ^ keyData.shiftKey;
-
-          let emit = lut[keyData.code][level3+shifted];
+          let emit = lut[keyData.code][altGr+shift];
 
           if (emit != null && contextID != -1) {
             ime_api.commitText({
