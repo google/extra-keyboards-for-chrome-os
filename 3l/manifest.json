@@ -8,10 +8,10 @@
   ],
   "input_components": [
     {
-      "name": "3l",
+      "name": "3l Keyboard",
       "type": "ime",
       "id": "3l_xkb",
-      "description": "3l Keyboard",
+      "description": "Jack Rosenthal's third layout",
       "language": "en-US",
       "layouts": ["us(3l-cros)"]
     }
