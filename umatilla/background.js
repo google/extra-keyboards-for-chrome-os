@@ -21,7 +21,7 @@ var contextID = 0;
 var lut = {
   "Backquote": [ "š", "~" ],
   "Minus": [ "č̓", "c̓" ],
-  "Equal": [ "č", "x̣ʷ" ],    
+  "Equal": [ "č", "x̣ʷ" ],
   "BracketLeft": [ "ł", "q̓ʷ" ],
   "BracketRight": [ "ɨ", "k̓ʷ" ],
   "Backslash": [ "ƛ", "x̣" ],
@@ -44,7 +44,7 @@ chrome.input.ime.onBlur.addListener(() => {
 chrome.input.ime.onKeyEvent.addListener(
     function(engineID, keyData) {
       var handled = false;
-      
+
       if (keyData.type == "keydown") {
         if (lut[keyData.code]) {
           let shifted = keyData.capsLock ^ keyData.shiftKey;
