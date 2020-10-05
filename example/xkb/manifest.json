@@ -1,0 +1,19 @@
+{
+  "name": "Example XKB layout",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Example XKB layout",
+  "permissions": [
+    "input"
+  ],
+  "input_components": [
+    {
+      "name": "Example XKB",
+      "type": "ime",
+      "id": "us_example",
+      "description": "Example XKB layout",
+      "language": ["en-US"],
+      "layouts": ["us(example)"]
+    }
+  ]
+}
