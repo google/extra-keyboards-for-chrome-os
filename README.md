@@ -37,4 +37,3 @@ Note that the version on the webstore may not be as up-to-date as on GitHub.
 
 ## Known Limitations
 - These extensions are not allowed on the login/lock screen.
-- These extensions are not allowed on password fields.
