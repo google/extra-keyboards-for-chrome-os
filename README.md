@@ -26,7 +26,11 @@ Note that the version on the webstore may not be as up-to-date as on GitHub.
 - [UK Extended](https://chrome.google.com/webstore/detail/uk-extended/pkbdliadhfopgfdhbldifaakplenbpnd)
 - [Programmer Dvorak](https://chrome.google.com/webstore/detail/programmer-dvorak/mogcmmflienoigckdgnkkkafbgkaecbj)
 - [Polish Dvorak](https://chrome.google.com/webstore/detail/polish-dvorak/gikieikejljogkfjbijjplfhbmhbmfkf)
-- [Dvorak right](https://chrome.google.com/webstore/detail/dvorak-right/ibmblmkjihglholefminaiddohamopnn)
+- [Swedish Dvorak](https://chrome.google.com/webstore/detail/svorak/ijimhcgeahpgfdcgaheadagkjkiibcnj)
+- [Dvorak left-handed](https://chrome.google.com/webstore/detail/dvorak-left/daedidciajfkjpjfmailopfppehmdlkn)
+- [Dvorak right-handed](https://chrome.google.com/webstore/detail/dvorak-right/ibmblmkjihglholefminaiddohamopnn)
+- [BÉPO](https://chrome.google.com/webstore/detail/b%C3%A9po/pgiknkjjcfcalehnoedjngelcgopgkgc)
+- [Lushootseed](https://chrome.google.com/webstore/detail/lushootseed/bdcecklhaeiniooomgajkefmnghopnpk)
 - [UK Colemak](https://chrome.google.com/webstore/detail/nionfllpgckhdmcecikpfkonedlmlnop) (published by third party)
 
 ## How to Use
