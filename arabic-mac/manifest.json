@@ -1,0 +1,20 @@
+{
+  "name": "Arabic (Mac) Keyboard Layout",
+  "short_name": "Arabic (Mac)",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Arabic Mac keyboard layout",
+  "permissions": [
+    "input"
+  ],
+  "input_components": [
+    {
+      "name": "Arabic Mac Keyboard",
+      "type": "ime",
+      "id": "arabic_mac",
+      "description": "Arabic Mac Keyboard",
+      "language": "ar",
+      "layouts": ["ara(mac)"]
+    }
+  ]
+}
