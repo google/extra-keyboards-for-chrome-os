@@ -73,7 +73,7 @@ chrome.input.ime.onFocus.addListener(function(context) {
 });
 
 function updateShiftState(keyData) {
-  var isShifted = (keyData.shiftKey && !keyData.capsLock) || (!keyData.shiftKey && keyData.capsLock);
+  var isShifted = keyData.shiftKey != keyData.capsLock;
   shiftState = isShifted ? Shift.SHIFTED : Shift.PLAIN;
 }
 
@@ -87,16 +87,13 @@ chrome.input.ime.onKeyEvent.addListener(function(engineID, keyData) {
   updateShiftState(keyData);
 
   if (assetKeymap[keyData.code]) {
-    // If these arn't relevent keypresses, then quit early.
+    // If these are not relevent keypresses, then quit early.
     if (isPureModifier(keyData) || keyData.type !== 'keydown') {
       return handled;
     }
 
-    // create a new object. Better than mutating keyData directly.
-    var remappedKeyData = keyData;
-    remappedKeyData.key = assetKeymap[keyData.code].key[shiftState];
-    remappedKeyData.code = assetKeymap[keyData.code].code;
-    chrome.input.ime.commitText({ contextID: contextID, text: remappedKeyData.key });
+    var emit = assetKeymap[keyData.code].key[shiftState] 
+    chrome.input.ime.commitText({ contextID: contextID, text: emit });
     handled = true;
   }
 

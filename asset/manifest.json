@@ -28,7 +28,7 @@ limitations under the License.
     {
       "name": "Asset",
       "type": "ime",
-      "id": "asset_xkb",
+      "id": "asset_nior",
       "description": "Asset Nior [en] keyboard",  // user visible description
       "language": "en-US",  // The primary language this IME is used for
       "layouts": ["us"]
