@@ -20,7 +20,7 @@ required.
 ### Chrome Web Store
 
 Several of the extensions are available on the [Chrome Web Store](http://chrome.google.com/webstore/).
-Note that the version on the webstore may not be as up-to-date as on GitHub.
+Note that the version on the webstore may not be as up-to-date as on GitHub. We may update it in future. But for now, please check on the [Chrome Webstore](http://chrome.google.com/webstore/) for them all.
 
 - [ComposeKey](https://chrome.google.com/webstore/detail/composekey/iijdllfdmhbmlmnbcohgbfagfibpbgba)
 - [UK Extended](https://chrome.google.com/webstore/detail/uk-extended/pkbdliadhfopgfdhbldifaakplenbpnd)
