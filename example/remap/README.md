@@ -1,14 +1,28 @@
-# XKB Extension
+# Remap Extension
+
+## Overview
+
+This type of extension will require both a `manifest.json` file and likely some
+JavaScript that is run in the background for all pages. An easy example to
+reference is the [Lushootseed
+layout](https://github.com/google/extra-keyboards-for-chrome-os/tree/master/lushootseed).
+This layout is based on the standard US English keyboard layout but remaps some
+of the keys to output a different character.
 
 ## Manifest
 
 Copy the example `manifest.json` file and open it with your favorite editor. You
 probably want to reference the [official manifest
 documentation](https://developer.chrome.com/extensions/manifest) for details
-about the various fields.
+about the various fields. Update the fields with appropriate values for what you
+intend to make. _The `input_components.id` field should be unique._
 
-Note: The `layout` in the example manifest is _not_ valid and will _not_ work if
-you attempt to load it.
+### Language and Layout
+
+When creating a custom layout you will need to base it on an existing XKB
+layout. A reasonable place to start would be a common layout in the region your
+layout is meant to be used. In the case of Lushootseed, the base layout is the
+standard US English keyboard layout.
 
 The two fields that are the most confusing are `input_components.language` and
 `input_components.layouts`. The `language` field should either be a string or an
@@ -34,10 +48,19 @@ Dvorak A5 layout as an example. The field should be `se(dvorak_a5)`. Note that
 the country code (`se`) maps to the file name and the layout variant is wrapped
 in parenthesis.
 
+## JavaScript
+
+The JavaScript code will need to interact with the Chrome Input Method
+Editor (IME) to intercept and act upon keyboard events. The Lushootseed layout
+uses a lookup table (variable named `lut`) in order to map a [keyboard
+key code](https://www.w3.org/TR/uievents-code/#keyboard-key-codes) to
+output characters. The output characters can be any Unicode character.
+
 ## Install
 
-After you have finished editing your manifest file you're done! Now is the time
-to try [installing](../../../README.md#github) and testing the extension.
+After you have finished editing your manifest and JavaScript files you're ready
+to test! Now is the time to try [installing](../../../README.md#github) and testing
+the extension.
 
 ## Share
 
