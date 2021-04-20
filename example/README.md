@@ -52,8 +52,8 @@ If, however, the layout does not exist then you have a few options to consider.
 If the layout exists in a version of xkeyboard-config that is newer than that
 running on Chrome OS then you could [create a
 bug](https://chromium.googlesource.com/chromiumos/docs/+/master/reporting_bugs.md)
-against requesting a new version of xkeyboard-config be built and included. This
-may take a while.
+requesting a new version of xkeyboard-config be built and included. This may
+take a while.
 
 The other option is to create your own extension using some sort of key
 combination mapping in JavaScript. Head over to the [remap](remap/README.md)

@@ -2,19 +2,22 @@
 
 ## Manifest
 
-Copy the example `manifest.json` file and open it with your favorite editor.
-The manifest is formatted as JSON. You probably want to reference the [official
-manifest documentation](https://developer.chrome.com/extensions/manifest) for
-details about the various fields.
+Copy the example `manifest.json` file and open it with your favorite editor. You
+probably want to reference the [official manifest
+documentation](https://developer.chrome.com/extensions/manifest) for details
+about the various fields.
 
 The two fields that are the most confusing are "language" and "layouts". The
 `language` field should either be a string or an array of strings with the
 language codes that can use this input extension. The code uses the format
-specified in [RFC 4646](https://tools.ietf.org/html/rfc4646) which combines the
+specified in [BCP 47](https://tools.ietf.org/html/bcp47) which combines the
 language (ISO 639) with the country or region of use (ISO 3166). Let's take an
 example: `sv-SE`. `sv` is the ISO 639-1 code for Swedish and `SE` is the ISO
 3166 code for Sweden. However, a Swedish speaker living in Finland is likely to
-want to use `sv-FI`.
+want to use `sv-FI`. Note that in this example it is unnecessary to add the
+country if the country is the default for that language. `sv-SE` and `sv` will
+be identical in this case the same as `jp-JP` would be. Always prefer to use the
+shortest viable value.
 
 Next we look at the `layouts` field which is used to reference a particular
 keyboard layout in the
@@ -40,3 +43,4 @@ request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-re
 You should fork the existing repository and create a new feature branch within
 that fork. Create a new directory at the top level of the repository with a
 descriptive but terse name.
+
