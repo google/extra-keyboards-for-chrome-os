@@ -15,7 +15,7 @@ You generally only need to submit a CLA once, so if you've already submitted one
 (even if it was for a different project), you probably don't need to do it
 again.
 
-## Code reviews
+## Code Reviews
 
 All submissions, including submissions by project members, require review. We
 use GitHub pull requests for this purpose. Consult
@@ -26,3 +26,9 @@ information on using pull requests.
 
 This project follows
 [Google's Open Source Community Guidelines](https://opensource.google.com/conduct/).
+
+## Creating a New Layout
+
+If you would like to create a new extension see the [`example`](example) directory. In
+this directory you will find how to create an extension based on some basic
+example templates.
