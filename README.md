@@ -40,4 +40,4 @@ Note that the version on the webstore may not be as up-to-date as on GitHub.
 3. Ctrl + Space to toggle between the most recently used keyboard languages.
 
 ## Known Limitations
-- These extensions are not allowed on the login/lock screen.
+- These extensions are not allowed on the login/lock screen. (https://crbug.com/1192290)
