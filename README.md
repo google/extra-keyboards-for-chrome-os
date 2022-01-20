@@ -1,7 +1,6 @@
 # Extra Keyboards for Chrome OS
 
-A collection of extra keyboard layouts and input methods for Chrome OS. Each
-directory is its own Chrome extension.
+A collection of extra keyboard layouts and input methods for Chrome OS.
 
 ## Installation
 
@@ -22,7 +21,6 @@ directory is its own Chrome extension.
 ### Chrome Web Store
 
 Several of the extensions are available on the [Chrome Web Store](http://chrome.google.com/webstore/).
-Note that the version on the webstore may not be as up-to-date as on GitHub.
 
 - [ComposeKey](https://chrome.google.com/webstore/detail/composekey/iijdllfdmhbmlmnbcohgbfagfibpbgba)
 - [UK Extended](https://chrome.google.com/webstore/detail/uk-extended/pkbdliadhfopgfdhbldifaakplenbpnd)
@@ -34,6 +32,13 @@ Note that the version on the webstore may not be as up-to-date as on GitHub.
 - [BÉPO](https://chrome.google.com/webstore/detail/b%C3%A9po/pgiknkjjcfcalehnoedjngelcgopgkgc)
 - [Lushootseed](https://chrome.google.com/webstore/detail/lushootseed/bdcecklhaeiniooomgajkefmnghopnpk)
 - [UK Colemak](https://chrome.google.com/webstore/detail/nionfllpgckhdmcecikpfkonedlmlnop) (published by third party)
+
+## For development
+
+1. Go to chrome://extensions.
+2. Click on "Load unpacked extensions...".
+3. Pick the directory containing the manifest for the extension you want to
+enable.
 
 ## How to Use
 
