@@ -1,0 +1,23 @@
+{
+  "name": "Example Remap",
+  "version": "1.0",
+  "manifest_version": 3,
+  "description": "Example keyboard layout remapped from US English",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+    "input"
+  ],
+  "input_components": [
+    {
+      "name": "My Example Remapped layout",
+      "type": "ime",
+      "id": "bderrly-remap-layout",
+      "description": "A really cool keyboard layout.",
+      "language": "en-US",
+      "layouts": ["us"]
+    }
+  ]
+}
+
