@@ -24,12 +24,10 @@ Several of the extensions are available on the [Chrome Web Store](http://chrome.
 
 - [ComposeKey](https://chrome.google.com/webstore/detail/composekey/iijdllfdmhbmlmnbcohgbfagfibpbgba)
 - [UK Extended](https://chrome.google.com/webstore/detail/uk-extended/pkbdliadhfopgfdhbldifaakplenbpnd)
-- [Programmer Dvorak](https://chrome.google.com/webstore/detail/programmer-dvorak/mogcmmflienoigckdgnkkkafbgkaecbj)
 - [Polish Dvorak](https://chrome.google.com/webstore/detail/polish-dvorak/gikieikejljogkfjbijjplfhbmhbmfkf)
 - [Swedish Dvorak](https://chrome.google.com/webstore/detail/svorak/ijimhcgeahpgfdcgaheadagkjkiibcnj)
 - [Dvorak left-handed](https://chrome.google.com/webstore/detail/dvorak-left/daedidciajfkjpjfmailopfppehmdlkn)
 - [Dvorak right-handed](https://chrome.google.com/webstore/detail/dvorak-right/ibmblmkjihglholefminaiddohamopnn)
-- [BÉPO](https://chrome.google.com/webstore/detail/b%C3%A9po/pgiknkjjcfcalehnoedjngelcgopgkgc)
 - [Lushootseed](https://chrome.google.com/webstore/detail/lushootseed/bdcecklhaeiniooomgajkefmnghopnpk)
 - [UK Colemak](https://chrome.google.com/webstore/detail/nionfllpgckhdmcecikpfkonedlmlnop) (published by third party)
 
