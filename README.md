@@ -20,7 +20,7 @@ A collection of extra keyboard layouts and input methods for Chrome OS.
 
 ### Chrome Web Store
 
-Several of the extensions are available on the [Chrome Web Store](http://chrome.google.com/webstore/).
+Several of the extensions are available on the [Chrome Web Store](http://chrome.google.com/webstore/) and there is a comprehensive install for over [500+ keyboard layouts for Chrome OS.](https://chrome.google.com/webstore/detail/xkb-keyboard-layouts-for/eogbkpghmlfbjmcanfcfbcnjlmhflbej/related?hl=en).
 
 - [ComposeKey](https://chrome.google.com/webstore/detail/composekey/iijdllfdmhbmlmnbcohgbfagfibpbgba)
 - [UK Extended](https://chrome.google.com/webstore/detail/uk-extended/pkbdliadhfopgfdhbldifaakplenbpnd)
