@@ -1,1 +1,0 @@
-This enables the Finnish Dvorak layout in Chrome OS
