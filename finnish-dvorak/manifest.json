@@ -1,0 +1,19 @@
+{
+  "name": "Finnish dvorak",
+  "version": "1.0",
+  "manifest_version": 3,
+  "description": "This enables the Finnish Dvorak layout in Chrome OS",
+  "permissions": [
+    "input"
+  ],
+  "input_components": [
+    {
+      "name": "Finnish dvorak",
+      "type": "ime",
+      "id": "dvorak_fi",
+      "description": "This enables the Finnish Dvorak layout in Chrome OS",
+      "language": ["fi-FI"],
+      "layouts": ["fi(fidvorak)"]
+    }
+  ]
+} \n
