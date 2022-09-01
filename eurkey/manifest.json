@@ -1,0 +1,116 @@
+{
+  "name": "EurKEY Keyboard Layout",
+  "version": "0.1",
+  "manifest_version": 3,
+  "description": "EurKEY keyboard layout for Chrome OS. After installing this extension, the EurKEY keyboard layout will be available on your system. Visit https://support.google.com/chromebook/answer/1059492 for information on how to add a keyboard layout. Visit https://eurkey.steffen.bruentjen.eu/ for more information on EurKEY.",
+  "permissions": [
+    "input"
+  ],
+  "input_components": [
+    {
+      "name": "Catalan with EurKEY keyboard",
+      "type": "ime",
+      "id": "eurkey_xkb_ca",
+      "description": "Catalan with EurKEY keyboard",
+      "language": "ca",
+      "layouts": ["eu(basic)"]
+    },
+    {
+      "name": "Danish with EurKEY keyboard",
+      "type": "ime",
+      "id": "eurkey_xkb_da",
+      "description": "Danish with EurKEY keyboard",
+      "language": "da",
+      "layouts": ["eu(basic)"]
+    },
+    {
+      "name": "German with EurKEY keyboard",
+      "type": "ime",
+      "id": "eurkey_xkb_de",
+      "description": "German with EurKEY keyboard",
+      "language": "de",
+      "layouts": ["eu(basic)"]
+    },
+    {
+      "name": "English with EurKEY keyboard",
+      "type": "ime",
+      "id": "eurkey_xkb_en",
+      "description": "English with EurKEY keyboard",
+      "language": "en",
+      "layouts": ["eu(basic)"]
+    },
+    {
+      "name": "Estonian with EurKEY keyboard",
+      "type": "ime",
+      "id": "eurkey_xkb_et",
+      "description": "Estonian with EurKEY keyboard",
+      "language": "et",
+      "layouts": ["eu(basic)"]
+    },
+    {
+      "name": "Faroese with EurKEY keyboard",
+      "type": "ime",
+      "id": "eurkey_xkb_fa",
+      "description": "Faroese with EurKEY keyboard",
+      "language": "fa",
+      "layouts": ["eu(basic)"]
+    },
+    {
+      "name": "Finnish with EurKEY keyboard",
+      "type": "ime",
+      "id": "eurkey_xkb_fi",
+      "description": "Finnish with EurKEY keyboard",
+      "language": "fi",
+      "layouts": ["eu(basic)"]
+    },
+    {
+      "name": "Greek with EurKEY keyboard",
+      "type": "ime",
+      "id": "eurkey_xkb_el",
+      "description": "Greek (modern) with EurKEY keyboard",
+      "language": "el",
+      "layouts": ["eu(basic)"]
+    },
+    {
+      "name": "Italian with EurKEY keyboard",
+      "type": "ime",
+      "id": "eurkey_xkb_it",
+      "description": "Italian with EurKEY keyboard",
+      "language": "it",
+      "layouts": ["eu(basic)"]
+    },
+    {
+      "name": "Latvian with EurKEY keyboard",
+      "type": "ime",
+      "id": "eurkey_xkb_lv",
+      "description": "Latvian with EurKEY keyboard",
+      "language": "lv",
+      "layouts": ["eu(basic)"]
+    },
+    {
+      "name": "Dutch with EurKEY keyboard",
+      "type": "ime",
+      "id": "eurkey_xkb_nl",
+      "description": "Dutch with EurKEY keyboard",
+      "language": "nl",
+      "layouts": ["eu(basic)"]
+    },
+    {
+      "name": "Spanish with EurKEY keyboard",
+      "type": "ime",
+      "id": "eurkey_xkb_es",
+      "description": "Spanish with EurKEY keyboard",
+      "language": "es",
+      "layouts": ["eu(basic)"]
+    },
+    {
+      "name": "Swedish with EurKEY keyboard",
+      "type": "ime",
+      "id": "eurkey_xkb_sv",
+      "description": "Swedish with EurKEY keyboard",
+      "language": "sv",
+      "layouts": ["eu(basic)"]
+    }
+  ]
+}
+
