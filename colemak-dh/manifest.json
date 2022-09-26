@@ -1,0 +1,22 @@
+{
+  "name": "Colemak-DH",
+  "version": "1.0",
+  "manifest_version": 3,
+  "description": "Colemak-DH keyboard",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "input"
+  ],
+  "input_components": [
+    {
+      "name": "Colemak-DH",
+      "type": "ime",
+      "id": "colemak-dh",
+      "description": "Colemak-DH keyboard",
+      "language": "en-US",
+      "layouts": ["us"]
+    }
+  ]
+}
