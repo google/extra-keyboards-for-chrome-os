@@ -32,6 +32,7 @@ Several of the extensions are available on the [Chrome Web Store](http://chrome.
 - [BÉPO](https://chrome.google.com/webstore/detail/b%C3%A9po/pgiknkjjcfcalehnoedjngelcgopgkgc)
 - [Lushootseed](https://chrome.google.com/webstore/detail/lushootseed/bdcecklhaeiniooomgajkefmnghopnpk)
 - [UK Colemak](https://chrome.google.com/webstore/detail/nionfllpgckhdmcecikpfkonedlmlnop) (published by third party)
+- [Dvorak Control Qwerty](https://github.com/7fe/dvorak-qwerty-chromeos)
 
 ## For development
 
