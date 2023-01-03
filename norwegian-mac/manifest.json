@@ -1,0 +1,20 @@
+{
+  "name": "Norwegian (Mac) Keyboard Layout",
+  "short_name": "Norwegian (Mac)",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Norwegian Mac keyboard layout",
+  "permissions": [
+    "input"
+  ],
+  "input_components": [
+    {
+      "name": "Norwegian Mac Keyboard",
+      "type": "ime",
+      "id": "norwegian_mac",
+      "description": "Norwegian Mac Keyboard",
+      "language": "no",
+      "layouts": ["no(mac)"]
+    }
+  ]
+}
