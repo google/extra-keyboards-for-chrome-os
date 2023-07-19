@@ -15,8 +15,8 @@ limitations under the License.
 */
 {
   "name": "Ukrainian Phonetic",
-  "version": "1",
-  "manifest_version": 2,
+  "version": "1.1",
+  "manifest_version": 3,
   "description": "Ukrainian Phonetic keyboard layout for Chrome OS",
   "permissions": [
     "input"
