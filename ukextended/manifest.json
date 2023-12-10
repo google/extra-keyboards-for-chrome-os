@@ -14,10 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 {
-  "name": "UK extended",
+  "name": "UK extended & English NZ",
   "version": "1.1",
   "manifest_version": 2,
-  "description": "UK extended keyboard (backquote acting as a dead key for grave accent)",
+  "description": "UK extended keyboard (backquote acting as a dead key for grave accent) and English NZ (macron available with right alt + vowel)",
   "background": {
     "scripts": ["background.js"]
   },
