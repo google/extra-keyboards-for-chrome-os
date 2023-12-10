@@ -15,9 +15,9 @@ limitations under the License.
 */
 var previousCharIsMagic = false;
 var contextID = -1;
-var lut = {"a": "à", "A": "À", "e": "è", "E": "È", "i": "ì", "I":"Ì", "o": "ò", "O":"Ò", "u":"ù", "U":"Ù", "w":"ẁ", "W":"Ẁ", "y":"ỳ", "Y":"Ỳ", "`": "`"};
+var lut = { "a": "à", "A": "À", "e": "è", "E": "È", "i": "ì", "I": "Ì", "o": "ò", "O": "Ò", "u": "ù", "U": "Ù", "w": "ẁ", "W": "Ẁ", "y": "ỳ", "Y": "Ỳ", "`": "`" };
 
-chrome.input.ime.onFocus.addListener(function(context) {
+chrome.input.ime.onFocus.addListener(function (context) {
   contextID = context.contextID;
 });
 
@@ -26,25 +26,53 @@ function isPureModifier(keyData) {
 }
 
 chrome.input.ime.onKeyEvent.addListener(
-    function(engineID, keyData) {
+  function (engineID, keyData) {
+    if (engineID === 'uk_extended_ime') {
       var handled = false;
-      
+
       if (previousCharIsMagic && keyData.type == "keydown" && !isPureModifier(keyData)) {
         previousCharIsMagic = false;
         if (lut[keyData.key]) {
-          chrome.input.ime.commitText({"contextID": contextID,
-                                   "text": lut[keyData.key]});
+          chrome.input.ime.commitText({
+            "contextID": contextID,
+            "text": lut[keyData.key]
+          });
           handled = true;
         } else {
-          chrome.input.ime.commitText({"contextID": contextID,
-                                   "text": "`"});
+          chrome.input.ime.commitText({
+            "contextID": contextID,
+            "text": "`"
+          });
         }
       }
-      
-      if (!handled && keyData.type == "keydown" && keyData.code == "Backquote" && keyData.key =="`") {
+
+      if (!handled && keyData.type == "keydown" && keyData.code == "Backquote" && keyData.key == "`") {
         previousCharIsMagic = true;
         handled = true;
       }
-      
+
       return handled;
-});
+    }
+    else { // !uk_extended
+      if (keyData.type == 'keydown' && keyData.altKey) switch (keyData.key) {
+        case 'a':
+          chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ā' });
+          return true;
+        case 'e':
+          chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ē' });
+          return true;
+        case 'i':
+          chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ī' });
+          return true;
+        case 'o':
+          chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ō' });
+          return true;
+        case 'u':
+          chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ū' });
+          return true;
+        default:
+          return false;
+      }
+      return false;
+    }
+  });

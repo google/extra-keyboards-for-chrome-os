@@ -32,6 +32,14 @@ limitations under the License.
       "description": "UK extended keyboard (backquote acting as a dead key for grave accent",  // user visible description
       "language": "en-GB",  // The primary language this IME is used for
       "layouts": ["gb(extd)"]  // The supported keyboard layouts for this IME (gb(extd) is actually a plain UK keyboard)
+    },
+    {
+      "name": "English (NZ)",
+      "type": "ime",
+      "id": "english_nz",
+      "description": "NZ english keyboard (macron accent on right alt + vowel)",
+      "language": "en-US",
+      "layouts": ["us"]
     }
   ]
 }
