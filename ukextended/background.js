@@ -55,24 +55,31 @@ chrome.input.ime.onKeyEvent.addListener(
       return handled;
     }
     else if (engineID === 'english_nz') {
-      if (keyData.type == 'keydown' && keyData.altKey) switch (keyData.key) {
-        case 'a':
-          chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ā' });
-          return true;
-        case 'e':
-          chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ē' });
-          return true;
-        case 'i':
-          chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ī' });
-          return true;
-        case 'o':
-          chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ō' });
-          return true;
-        case 'u':
-          chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ū' });
-          return true;
-        default:
-          return false;
+      // Undo India keyboard map.
+      if (keyData.type === 'keydown' && keyData.shiftKey && keyData.code === 'Digit4') {
+        chrome.input.ime.commitText({ 'contextID': contextID, 'text': '$' });
+        return true;
+      }
+      if (keyData.type === 'keydown' && keyData.altgrKey) {
+        switch (keyData.key) {
+          case 'a':
+            chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ā' });
+            return true;
+          case 'e':
+            chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ē' });
+            return true;
+          case 'i':
+            chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ī' });
+            return true;
+          case 'o':
+            chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ō' });
+            return true;
+          case 'u':
+            chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ū' });
+            return true;
+          default:
+            return false;
+        }
       }
       return false;
     }

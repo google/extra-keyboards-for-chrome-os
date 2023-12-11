@@ -39,7 +39,7 @@ limitations under the License.
       "id": "english_nz",
       "description": "NZ english keyboard (macron accent on right alt + vowel)",
       "language": "en-US",
-      "layouts": ["us"]
+      "layouts": ["in(eng)"] // in(eng) is qwerty but with rupee sign instead of dollar, but includes a right-alt layer which we need
     },
     {
       "name": "Te Reo",
@@ -47,7 +47,7 @@ limitations under the License.
       "id": "te_reo",
       "description": "Te Reo keyboard layout",
       "language": "en-US",
-      "layouts": ["us"]
+      "layouts": ["in(eng)"] // in(eng) is qwerty but with rupee sign instead of dollar, but includes a right-alt layer which we need
     }
   ]
 }
