@@ -16,6 +16,7 @@ limitations under the License.
 var previousCharIsMagic = false;
 var contextID = -1;
 var lut = { "a": "à", "A": "À", "e": "è", "E": "È", "i": "ì", "I": "Ì", "o": "ò", "O": "Ò", "u": "ù", "U": "Ù", "w": "ẁ", "W": "Ẁ", "y": "ỳ", "Y": "Ỳ", "`": "`" };
+var usingTeReoLayout = false;
 
 chrome.input.ime.onFocus.addListener(function (context) {
   contextID = context.contextID;
@@ -53,7 +54,7 @@ chrome.input.ime.onKeyEvent.addListener(
 
       return handled;
     }
-    else { // !uk_extended
+    else if (engineID === 'english_nz') {
       if (keyData.type == 'keydown' && keyData.altKey) switch (keyData.key) {
         case 'a':
           chrome.input.ime.commitText({ 'contextID': contextID, 'text': 'ā' });
@@ -75,4 +76,77 @@ chrome.input.ime.onKeyEvent.addListener(
       }
       return false;
     }
+    else { // Te reo
+      const teReoAltGrMapping = {
+        'q': 'ka',
+        'w': 'wh',
+        'e': 'ē',
+        'y': 'ū',
+        'u': 'ū',
+        'i': 'ī',
+        'o': 'ō',
+        // row 2
+        'a': 'ā',
+        's': 'te',
+        'd': 'ē',
+        'f': 'wh',
+        'g': 'ng',
+        'h': 'he',
+        'j': 'ī',
+        'k': 'ka',
+        'l': 'ō',
+        // row 3,
+        'z': 'ā',
+        'x': 'ki',
+        'c': 'ko',
+        'v': 'ngā',
+        'b': 'he'
+      }
+
+      const teReoMapping = {
+        'q': 'ka',
+        'y': 'ū',
+        's': 'te',
+        'd': 'ē',
+        'f': 'wh',
+        'j': 'ī',
+        'z': 'ā',
+        'x': 'ki',
+        'c': 'ko',
+        'v': 'ngā',
+        'b': 'he'
+      }
+
+      // In both modes, the alt-gr layer is the same
+      if (keyData.type == 'keydown' && keyData.altKey && keyData.shiftKey && teReoAltGrMapping[keyData.key]) {
+        // Altgr+shift makes the keys uppercase.
+        const letters = teReoAltGrMapping[keyData.key];
+        chrome.input.ime.commitText({ 'contextID': contextID, 'text': letters.charAt(0).toUpperCase() + letters.slice(1) });
+        return true;
+      }
+      else if (keyData.type == 'keydown' && keyData.altKey && teReoAltGrMapping[keyData.key]) {
+        chrome.input.ime.commitText({ 'contextID': contextID, 'text': teReoAltGrMapping[keyData.key] });
+        return true;
+      }
+
+      if (usingTeReoLayout) {
+        if (keyData.type == 'keydown' && keyData.shiftKey && teReoMapping[keyData.key]) {
+          // Altgr+shift makes the keys uppercase.
+          const letters = teReoMapping[keyData.key];
+          chrome.input.ime.commitText({ 'contextID': contextID, 'text': letters.charAt(0).toUpperCase() + letters.slice(1) });
+          return true;
+        }
+        else if (keyData.type == 'keydown' && teReoMapping[keyData.key]) {
+          chrome.input.ime.commitText({ 'contextID': contextID, 'text': teReoMapping[keyData.key] });
+          return true;
+        }
+      }
+
+      if (keyData.key == '`') {
+        usingTeReoLayout = !usingTeReoLayout;
+        return true;
+      }
+      return false;
+    }
+
   });

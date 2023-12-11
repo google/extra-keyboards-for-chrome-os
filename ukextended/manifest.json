@@ -40,6 +40,14 @@ limitations under the License.
       "description": "NZ english keyboard (macron accent on right alt + vowel)",
       "language": "en-US",
       "layouts": ["us"]
+    },
+    {
+      "name": "Te Reo",
+      "type": "ime",
+      "id": "te_reo",
+      "description": "Te Reo keyboard layout",
+      "language": "en-US",
+      "layouts": ["us"]
     }
   ]
 }
