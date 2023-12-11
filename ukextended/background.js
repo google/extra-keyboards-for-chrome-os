@@ -55,9 +55,9 @@ chrome.input.ime.onKeyEvent.addListener(
       return handled;
     }
     else if (engineID === 'english_nz') {
-      // Undo India keyboard map.
-      if (keyData.type === 'keydown' && keyData.shiftKey && keyData.code === 'Digit4') {
-        chrome.input.ime.commitText({ 'contextID': contextID, 'text': '$' });
+      // undo india keyboard map.
+      if (keyData.type === 'keydown' && keyData.shiftkey && keyData.code === 'digit4') {
+        chrome.input.ime.committext({ 'contextid': contextid, 'text': '$' });
         return true;
       }
       if (keyData.type === 'keydown' && keyData.altgrKey) {
@@ -84,6 +84,12 @@ chrome.input.ime.onKeyEvent.addListener(
       return false;
     }
     else { // Te reo
+      // undo india keyboard map.
+      if (keyData.type === 'keydown' && keyData.shiftkey && keyData.code === 'digit4') {
+        chrome.input.ime.committext({ 'contextid': contextid, 'text': '$' });
+        return true;
+      }
+      
       const teReoAltGrMapping = {
         'q': 'ka',
         'w': 'wh',
@@ -125,19 +131,19 @@ chrome.input.ime.onKeyEvent.addListener(
       }
 
       // In both modes, the alt-gr layer is the same
-      if (keyData.type == 'keydown' && keyData.altKey && keyData.shiftKey && teReoAltGrMapping[keyData.key]) {
+      if (keyData.type === 'keydown' && keyData.altgrKey && keyData.shiftKey && teReoAltGrMapping[keyData.key]) {
         // Altgr+shift makes the keys uppercase.
         const letters = teReoAltGrMapping[keyData.key];
         chrome.input.ime.commitText({ 'contextID': contextID, 'text': letters.charAt(0).toUpperCase() + letters.slice(1) });
         return true;
       }
-      else if (keyData.type == 'keydown' && keyData.altKey && teReoAltGrMapping[keyData.key]) {
+      else if (keyData.type === 'keydown' && keyData.altgrKey && teReoAltGrMapping[keyData.key]) {
         chrome.input.ime.commitText({ 'contextID': contextID, 'text': teReoAltGrMapping[keyData.key] });
         return true;
       }
 
       if (usingTeReoLayout) {
-        if (keyData.type == 'keydown' && keyData.shiftKey && teReoMapping[keyData.key]) {
+        if (keyData.type === 'keydown' && keyData.shiftKey && teReoMapping[keyData.key]) {
           // Altgr+shift makes the keys uppercase.
           const letters = teReoMapping[keyData.key];
           chrome.input.ime.commitText({ 'contextID': contextID, 'text': letters.charAt(0).toUpperCase() + letters.slice(1) });
@@ -149,7 +155,7 @@ chrome.input.ime.onKeyEvent.addListener(
         }
       }
 
-      if (keyData.key == '`') {
+      if (keyData.type === 'keydown' && keyData.key === '`') {
         usingTeReoLayout = !usingTeReoLayout;
         return true;
       }
