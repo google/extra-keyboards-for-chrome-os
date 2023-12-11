@@ -38,8 +38,8 @@ limitations under the License.
       "type": "ime",
       "id": "english_nz",
       "description": "NZ english keyboard (macron accent on right alt + vowel)",
-      "language": "en-US",
-      "layouts": ["us"]
+      "language": "en-us",
+      "layouts": ["in(eng)"] // in(eng) is qwerty but with rupee sign instead of dollar, but includes a right-alt layer which we need
     }
   ]
 }
