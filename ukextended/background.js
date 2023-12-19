@@ -133,9 +133,9 @@ chrome.input.ime.onKeyEvent.addListener(
       }
 
       // In both modes, the alt-gr layer is the same
-      if (keyData.type === 'keydown' && keyData.altgrKey && keyData.shiftKey && teReoAltGrMapping[keyData.key]) {
+      if (keyData.type === 'keydown' && keyData.altgrKey && keyData.shiftKey && teReoAltGrMapping[keyData.key.toLowerCase()]) {
         // Altgr+shift makes the keys uppercase.
-        const letters = teReoAltGrMapping[keyData.key];
+        const letters = teReoAltGrMapping[keyData.key.toLowerCase()];
         chrome.input.ime.commitText({ 'contextID': contextID, 'text': letters.charAt(0).toUpperCase() + letters.slice(1) });
         return true;
       }
@@ -145,9 +145,9 @@ chrome.input.ime.onKeyEvent.addListener(
       }
 
       if (usingTeReoLayout) {
-        if (keyData.type === 'keydown' && keyData.shiftKey && teReoMapping[keyData.key]) {
+        if (keyData.type === 'keydown' && keyData.shiftKey && teReoMapping[keyData.key.toLowerCase()]) {
           // Altgr+shift makes the keys uppercase.
-          const letters = teReoMapping[keyData.key];
+          const letters = teReoMapping[keyData.key.toLowerCase()];
           chrome.input.ime.commitText({ 'contextID': contextID, 'text': letters.charAt(0).toUpperCase() + letters.slice(1) });
           return true;
         }

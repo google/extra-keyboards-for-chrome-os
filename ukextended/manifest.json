@@ -29,9 +29,9 @@ limitations under the License.
       "name": "UK extended",
       "type": "ime",
       "id": "uk_extended_ime",
-      "description": "UK extended keyboard (backquote acting as a dead key for grave accent",  // user visible description
-      "language": "en-GB",  // The primary language this IME is used for
-      "layouts": ["gb(extd)"]  // The supported keyboard layouts for this IME (gb(extd) is actually a plain UK keyboard)
+      "description": "UK extended keyboard (backquote acting as a dead key for grave accent",
+      "language": "en-GB",
+      "layouts": ["gb(extd)"]
     },
     {
       "name": "English (NZ)",
@@ -39,7 +39,7 @@ limitations under the License.
       "id": "english_nz",
       "description": "NZ english keyboard (macron accent on right alt + vowel)",
       "language": "en-US",
-      "layouts": ["in(eng)"] // in(eng) is qwerty but with rupee sign instead of dollar, but includes a right-alt layer which we need
+      "layouts": ["in(eng)"]
     },
     {
       "name": "Te Reo",
@@ -47,7 +47,7 @@ limitations under the License.
       "id": "te_reo",
       "description": "Te Reo keyboard layout",
       "language": "en-US",
-      "layouts": ["in(eng)"] // in(eng) is qwerty but with rupee sign instead of dollar, but includes a right-alt layer which we need
+      "layouts": ["in(eng)"]
     }
   ]
 }
