@@ -89,7 +89,7 @@ chrome.input.ime.onKeyEvent.addListener(
         chrome.input.ime.committext({ 'contextid': contextid, 'text': '$' });
         return true;
       }
-      
+
       const teReoAltGrMapping = {
         'q': 'ka',
         'w': 'wh',
@@ -122,7 +122,9 @@ chrome.input.ime.onKeyEvent.addListener(
         's': 'te',
         'd': 'ē',
         'f': 'wh',
+        'g': 'ng',
         'j': 'ī',
+        'l': 'ō',
         'z': 'ā',
         'x': 'ki',
         'c': 'ko',
