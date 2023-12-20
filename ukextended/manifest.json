@@ -1,23 +1,8 @@
-/*
-Copyright 2014 Google Inc. All rights reserved.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 {
-  "name": "UK extended",
-  "version": "1.1",
+  "name": "UK extended, English NZ & Te Reo",
+  "version": "2.0",
   "manifest_version": 2,
-  "description": "UK extended keyboard (backquote acting as a dead key for grave accent)",
+  "description": "UK extended keyboard (backquote acting as a dead key for grave accent) and English NZ (macron available with right alt + vowel)",
   "background": {
     "scripts": ["background.js"]
   },
@@ -29,9 +14,25 @@ limitations under the License.
       "name": "UK extended",
       "type": "ime",
       "id": "uk_extended_ime",
-      "description": "UK extended keyboard (backquote acting as a dead key for grave accent",  // user visible description
-      "language": "en-GB",  // The primary language this IME is used for
-      "layouts": ["gb(extd)"]  // The supported keyboard layouts for this IME (gb(extd) is actually a plain UK keyboard)
+      "description": "UK extended keyboard (backquote acting as a dead key for grave accent",
+      "language": "en-GB",
+      "layouts": ["gb(extd)"]
+    },
+    {
+      "name": "English (NZ)",
+      "type": "ime",
+      "id": "english_nz",
+      "description": "NZ english keyboard (macron accent on right alt + vowel)",
+      "language": "en-US",
+      "layouts": ["in(eng)"]
+    },
+    {
+      "name": "Te Reo",
+      "type": "ime",
+      "id": "te_reo",
+      "description": "Te Reo keyboard layout",
+      "language": "en-US",
+      "layouts": ["in(eng)"]
     }
   ]
 }
