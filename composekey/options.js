@@ -163,7 +163,7 @@ function updateComposeFileStatus() {
   const errors = document.getElementById('errors');
   const warnings = document.getElementById('warnings');
   for (let elem of [errors, warnings]) {
-    elem.innerHTML = '';
+    elem.innerText = '';
     elem.style.display = 'none';
   }
 
