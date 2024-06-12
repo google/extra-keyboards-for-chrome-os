@@ -1,0 +1,20 @@
+{
+  "name": "French (Mac) Keyboard Layout",
+  "short_name": "French (Mac)",
+  "version": "1.0",
+  "manifest_version": 3,
+  "description": "French Mac keyboard layout",
+  "permissions": [
+    "input"
+  ],
+  "input_components": [
+    {
+      "name": "Français (Mac)",
+      "type": "ime",
+      "id": "french_mac",
+      "description": "Français (Mac)",
+      "language": "fr",
+      "layouts": ["fr(mac)"]
+    }
+  ]
+}
