@@ -1,0 +1,67 @@
+{
+    "name": "Inscript keyboards",
+    "version": "1.0",
+    "manifest_version": 3,
+    "description": "Indic language keyboards in Inscript",
+    "permissions": [
+	"input"
+    ],
+    "input_components": [
+	{
+	    "name": "Hindi (Inscript)",
+	    "type": "ime",
+	    "id": "ajitnarayanan_inscript_xkb_in_hi",
+	    "description": "Hindi Devanagari (Inscript) layout",
+	    "language": ["hi"],
+	    "layouts": ["in(deva)"]
+	},
+	{
+	    "name": "Marathi (Inscript)",
+	    "type": "ime",
+	    "id": "ajitnarayanan_inscript_xkb_in_mr",
+	    "description": "Marathi (Inscript) layout",
+	    "language": ["mr"],
+	    "layouts": ["in(deva)"]
+	},
+	{
+	    "name": "Kannada (Inscript)",
+	    "type": "ime",
+	    "id": "ajitnarayanan_inscript_xkb_in_kan",
+	    "description": "Kannada (Inscript) layout",
+	    "language": ["kn"],
+	    "layouts": ["in(kan)"]
+	},
+	{
+	    "name": "Odia (Inscript)",
+	    "type": "ime",
+	    "id": "ajitnarayanan_inscript_xkb_in_ori",
+	    "description": "Odia (Inscript) layout",
+	    "language": ["or"],
+	    "layouts": ["in(ori)"]
+	},
+	{
+	    "name": "Telugu (Inscript)",
+	    "type": "ime",
+	    "id": "ajitnarayanan_inscript_xkb_in_tel",
+	    "description": "Telugu (Inscript) layout",
+	    "language": ["te"],
+	    "layouts": ["in(tel)"]
+	},
+	{
+	    "name": "Malayalam (Enhanced Inscript)",
+	    "type": "ime",
+	    "id": "ajitnarayanan_inscript_xkb_in_mal",
+	    "description": "Malayalam (Inscript) layout",
+	    "language": ["ml"],
+	    "layouts": ["in(mal)"]
+	},
+	{
+	    "name": "Bangla (India, Baisakhi Inscript)",
+	    "type": "ime",
+	    "id": "ajitnarayanan_inscript_xkb_in_ben",
+	    "description": "Bangla (Inscript) layout",
+	    "language": ["bn"],
+	    "layouts": ["in(ben)"]
+	}
+    ]
+}
