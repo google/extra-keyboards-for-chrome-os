@@ -12,8 +12,7 @@ extension with the world.
 
 The first thing to do is determine if you can take the simple route or if your
 extension will require more effort. If your layout is already in the version of
-[xkeyboard-config](https://github.com/freedesktop/xkeyboard-config) that is
-available in Chrome OS you are nearly ready.
+[xkeyboard-config] that is available in Chrome OS you are nearly ready.
 
 On your Chrome OS device, open a new browser tab and go to `chrome://version`.
 Find both the "Google Chrome" and the "Platform" version numbers. My device, as
@@ -27,11 +26,8 @@ Click the 'x11-misc' and then 'xkeyboard-config' links. You will now need to
 compare the version number listed for the xkeyboard-config ebuild file. The
 revision I am using for this example is 2.27.
 
-Going back to the
-[xkeyboard-config](https://github.com/freedesktop/xkeyboard-config) repository
-and update the source viewer to the tag based on that release version. In GitHub
-you click the branch selection menu, click "Tags", and then select the
-appropriate version.
+Going back to the [xkeyboard-config] repository and update the source viewer to the tag based on that release version. 
+In GitHubyou click the branch selection menu, click "Tags", and then select the appropriate version.
 
 ![branch select menu](branch_menu.png)
 
@@ -58,3 +54,5 @@ take a while.
 The other option is to create your own extension using some sort of key
 combination mapping in JavaScript. Head over to the [remap](remap/README.md)
 section for details on how to proceed.
+
+[xkeyboard-config]: https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config
