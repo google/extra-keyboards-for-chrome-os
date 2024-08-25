@@ -27,7 +27,7 @@ compare the version number listed for the xkeyboard-config ebuild file. The
 revision I am using for this example is 2.27.
 
 Going back to the [xkeyboard-config] repository and update the source viewer to the tag based on that release version. 
-In GitHubyou click the branch selection menu, click "Tags", and then select the appropriate version.
+In GitHub you click the branch selection menu, click "Tags", and then select the appropriate version.
 
 ![branch select menu](branch_menu.png)
 
