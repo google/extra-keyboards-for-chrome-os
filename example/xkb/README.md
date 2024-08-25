@@ -25,9 +25,8 @@ unnecessary to add the country if the country is the default for that language.
 Always prefer to use the shortest viable value.
 
 Next we look at the `layouts` field which is used to reference a particular
-keyboard layout in the
-[xkeyboard-config](https://github.com/freedesktop/xkeyboard-config/blob/master/symbols/se)
-package. Looking at the file `se` (for Sweden) we can find all of the pre-made
+keyboard layout in the [xkeyboard-config] package. 
+Looking at the file `se` (for Sweden) we can find all of the pre-made
 layouts by looking for the lines that begin with "xkb\_symbols". The name in
 quotes after this token is the name of the layout variant. We'll take the
 Dvorak A5 layout as an example. The field should be `se(dvorak_a5)`. Note that
@@ -49,3 +48,4 @@ You should fork the existing repository and create a new feature branch within
 that fork. Create a new directory at the top level of the repository with a
 descriptive but terse name.
 
+[xkeyboard-config]: https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config
