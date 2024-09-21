@@ -17,13 +17,13 @@ limitations under the License.
 RuIntl cyrillic keyboard layout
 Based on the Russian standard keyboard layout
 The AltGr key to be used as the Compose key
-Updated 2024-09-05
-Version 1.2
+Updated 2024-09-21
+Version 1.3
 */
 
-var contextID = 0;
+let contextID = 0;
 
-const keys = [
+const capsoffkeys = [
     "Digit1",
     "Digit2",
     "Digit3",
@@ -40,6 +40,8 @@ const keys = [
     "Slash"
 ];
 
+//The lookup table (lut) object structure:
+//  "keyData.code"    : [ "plain", "shifted", "altered", "altered&shifted" ]
 const lut = {
     "Backquote"   : [ "ё", "Ё", "`", " ́" ],
     "Digit1"      : [ "1", "!", "₽", "¹" ],
@@ -91,7 +93,7 @@ const lut = {
     "Space"       : [ " ", " ", "\u00a0", "\u00a0" ],
 };
 
-var altstate = false;
+let altstate = false;
 
 chrome.input.ime.onFocus.addListener(
     function(context) {
@@ -105,7 +107,7 @@ chrome.input.ime.onBlur.addListener(() => {
 
 chrome.input.ime.onKeyEvent.addListener(
     function(engineID, keyData) {
-      var handled = false;
+      let handled = false;
 
       if ((keyData.type == "keydown") && (keyData.code == "AltRight")) {
           if (altstate == false) {
@@ -116,8 +118,8 @@ chrome.input.ime.onKeyEvent.addListener(
       if (keyData.type == "keydown" && keyData.altKey == false && keyData.ctrlKey == false) {
 
           if (lut[keyData.code]) {
-            let modified = keyData.shiftKey ^ keyData.capsLock + 2 * altstate;
-            if (keys.includes(keyData.code)) {
+            let modified = (keyData.shiftKey != keyData.capsLock) + 2 * altstate;
+            if (capsoffkeys.includes(keyData.code)) {
               modified = keyData.shiftKey + 2 * altstate;
             }
               
