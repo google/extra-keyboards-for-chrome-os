@@ -1,6 +1,6 @@
 {
   "name": "Russian (RU, international)",
-  "version": "1.2",
+  "version": "1.3",
   "manifest_version": 3,
   "description": "RuIntl cyrillic keyboard layout",
   "background": {
