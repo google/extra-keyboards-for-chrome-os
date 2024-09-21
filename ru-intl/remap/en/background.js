@@ -17,13 +17,13 @@ limitations under the License.
 RuIntl latin keyboard layout
 Based on the English standard keyboard layout
 The AltGr key to be used as the Compose key
-Updated 2024-09-05
-Version 1.2
+Updated 2024-09-21
+Version 1.3
 */
 
-var contextID = 0;
+let contextID = 0;
 
-const keys = [
+const capsoffkeys = [
     "Backquote",
     "Digit1",
     "Digit2",
@@ -46,6 +46,8 @@ const keys = [
     "Slash"
 ];
 
+//The lookup table (lut) object structure:
+//  "keyData.code"    : [ "plain", "shifted", "altered", "altered&shifted" ]
 const lut = {
     "Backquote"       : [ "dead_grave", "dead_acute", "`", " ́" ],
     "Digit1"          : [ "1", "!", "¡", "¹" ],
@@ -132,8 +134,8 @@ const deadkeys = {
     "dead_cedilla"    : { "c": "ç", "C": "Ç", "s": "ş", "S": "Ş", "t": "ţ", "T": "Ţ", " ": "¸", },
 };
 
-var altstate = false;
-var deadkey = null;
+let altstate = false;
+let deadkey = null;
 
 chrome.input.ime.onFocus.addListener(
     function(context) {
@@ -147,7 +149,7 @@ chrome.input.ime.onBlur.addListener(() => {
 
 chrome.input.ime.onKeyEvent.addListener(
     function(engineID, keyData) {
-      var handled = false;
+      let handled = false;
 
       if ((keyData.type == "keydown") && (keyData.code == "AltRight")) {
           if (altstate == false) {
@@ -158,8 +160,8 @@ chrome.input.ime.onKeyEvent.addListener(
       if (keyData.type == "keydown" && keyData.altKey == false && keyData.ctrlKey == false) {
 
           if (lut[keyData.code]) {
-            let modified = keyData.shiftKey ^ keyData.capsLock + 2 * altstate;
-            if (keys.includes(keyData.code)) {
+            let modified = (keyData.shiftKey != keyData.capsLock) + 2 * altstate;
+            if (capsoffkeys.includes(keyData.code)) {
               modified = keyData.shiftKey + 2 * altstate;
             }
               
@@ -169,11 +171,8 @@ chrome.input.ime.onKeyEvent.addListener(
             if (deadkey != null) {
                 if (deadkeys[deadkey][emit]) {
                   emit = deadkeys[deadkey][emit];
-                  deadkey = null;
                 }
-                else {
-                  deadkey = null;
-                }
+                deadkey = null;
             }
               
             if ((deadkey == null) && (deadkeys[emit])) {
