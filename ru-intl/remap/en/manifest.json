@@ -16,7 +16,7 @@
       "id": "ruintl_en",
       "description": "RuIntl latin keyboard layout",
       "language": "en-US",
-      "layouts": ["us(intl)"]
+      "layouts": ["us"]
     }
   ]
 }
