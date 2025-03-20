@@ -1,10 +1,10 @@
 {
   "name": "UK extended, English NZ & Te Reo",
   "version": "2.0",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "description": "UK extended keyboard (backquote acting as a dead key for grave accent) and English NZ (macron available with right alt + vowel)",
   "background": {
-    "scripts": ["background.js"]
+    "service_worker": "background.js"
   },
   "permissions": [
     "input"
