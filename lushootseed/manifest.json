@@ -1,10 +1,10 @@
 {
   "name": "Lushootseed",
   "version": "1.0",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "description": "Lushootseed (dxʷləšucid) keyboard",
   "background": {
-    "scripts": ["background.js"]
+    "service_worker": "background.js"
   },
   "icons": {
     "16": "icon16.png",
