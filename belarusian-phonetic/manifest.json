@@ -1,0 +1,27 @@
+{
+  "name": "Belarusian Phonetic",
+  "version": "1.0",
+  "manifest_version": 3,
+  "description": "Belarusian Phonetic Layout",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "input"
+  ],
+  "icons": {
+    "128": "images/icon-128.png",
+    "48": "images/icon-48.png",
+    "16": "images/icon-16.png"
+  },
+  "input_components": [
+    {
+      "name": "Belarusian Phonetic",
+      "type": "ime",
+      "id": "be_phonetic_ime",
+      "description": "Belarusian Phonetic Layout",
+      "language": "be",
+      "layouts": ["us"]
+    }
+  ]
+}
