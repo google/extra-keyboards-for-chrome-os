@@ -1,3 +1,40 @@
+let ime = chrome.input.ime;
+
+// Basic stuff required for ChromeOS input method extension to
+// work. We need to track contextID and we need to deal with ChromeOS
+// deactivating extensions.
+
+// This is a common and simplest way of preventing ChromeOS from
+// deactivating our background worker.
+setInterval(() => {
+  chrome.runtime.getPlatformInfo(() => {});
+}, 15000);
+
+let contextID = 0;
+// We do try to recover contextID if extension is reloaded. This is
+// partially controversial, because contextID values are
+// ephemeral. But it looks like lesser evil then alternatives.
+chrome.storage.local.get(['contextID'], (result) => {
+  if (result.contextID) {
+    contextID = result.contextID;
+    console.log("Restored Context ID:", contextID);
+  }
+});
+
+function saveContextID(newValue) {
+  contextID = newValue;
+  chrome.storage.local.set({
+    contextID: newValue
+  });
+}
+// Focus and Blur events is how contextID is given to us.
+ime.onFocus.addListener(function (context) {
+  saveContextID(context.contextID);
+});
+ime.onBlur.addListener(function () {
+  saveContextID(0);
+});
+
 let layout = {
   "Digit3": ["3", "ё"],
   "Digit4": ["4", "Ё"],
@@ -36,43 +73,39 @@ let layout = {
   "KeyM": ["м", "М"],
 };
 
-let ime = chrome.input.ime;
-
-let contextID = 0;
-ime.onFocus.addListener(function (context) {
-  contextID = context.contextID;
-});
-ime.onBlur.addListener(function () {
-  contextID = 0;
-});
-
-function emitKey(emit) {
+function emitChar(emit) {
   if (contextID == 0) {
     return false;
   }
   ime.commitText({
     "contextID": contextID,
     "text": emit,
+  }).catch(function (error) {
+    console.error("commit", error);
   });
   return true;
 }
 
-let altGr = false;
 function mappingFn(engineID, keyData) {
-  if (keyData.code == "AltRight") {
-    altGr = (keyData.type == "keydown");
-    return false;
-  }
+  // Note, we use us(algr-intl) as base layout in manifest. This
+  // "converts" right-alt into altGr and lets us use it as compose key
+  // with minimal surprises.
+  let altGr = keyData.altgrKey;
 
   let keys = layout[keyData.code];
   if (keyData.type != "keydown" || !keys) {
     return false;
   }
 
+  // caps lock negates shift key as usual.
   let shifted = (keyData.shiftKey ^ keyData.capsLock);
+  // For some keys we have 4 levels. E.g. cyrillic е becomes ё when
+  // typed with compose key (altgr, aka right-alt). So we check if we
+  // have 4 levels and if we have altgr pressed.
   if (keys.length > 2 && altGr) {
     shifted += 2;
   }
-  return emitKey(keys[shifted]);
+
+  return emitChar(keys[shifted]);
 }
 ime.onKeyEvent.addListener(mappingFn);

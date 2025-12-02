@@ -7,7 +7,8 @@
     "service_worker": "background.js"
   },
   "permissions": [
-    "input"
+    "input",
+    "storage"
   ],
   "icons": {
     "128": "images/icon-128.png",
@@ -21,7 +22,7 @@
       "id": "be_phonetic_ime",
       "description": "Belarusian Phonetic Layout",
       "language": "be",
-      "layouts": ["us"]
+      "layouts": ["us(altgr-intl)"]
     }
   ]
 }
