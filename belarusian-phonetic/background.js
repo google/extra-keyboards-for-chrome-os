@@ -97,8 +97,13 @@ function mappingFn(engineID, keyData) {
     return false;
   }
 
-  // caps lock negates shift key as usual.
-  let shifted = (keyData.shiftKey ^ keyData.capsLock);
+  let shifted = keyData.shiftKey ^ 0;
+
+  // caps lock negates shift key as usual. But only for "letter" keys.
+  if (keyData.capsLock && keys[0].toUpperCase() == keys[1]) {
+    shifted = shifted ^ 1;
+  }
+
   // For some keys we have 4 levels. E.g. cyrillic е becomes ё when
   // typed with compose key (altgr, aka right-alt). So we check if we
   // have 4 levels and if we have altgr pressed.
