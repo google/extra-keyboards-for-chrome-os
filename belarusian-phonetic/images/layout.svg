@@ -1,0 +1,145 @@
+<svg width="990" height="340" xmlns="http://www.w3.org/2000/svg">
+<style>text { font-family: 'Roboto', sans-serif; pointer-events: none; }</style>
+<rect width="100%" height="100%" fill="white" />
+<rect x="10" y="10" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="17" y="56" style="font-size: 20px; font-weight: bold; fill: #202124;">ю</text>
+<rect x="75" y="10" width="60" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="82" y="56" style="font-size: 20px; fill: #9aa0a6;">1</text>
+<text x="82" y="30" style="font-size: 20px; fill: #9aa0a6;">!</text>
+<rect x="140" y="10" width="60" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="147" y="56" style="font-size: 20px; fill: #9aa0a6;">2</text>
+<text x="147" y="30" style="font-size: 20px; fill: #9aa0a6;">@</text>
+<rect x="205" y="10" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="212" y="56" style="font-size: 20px; font-weight: bold; fill: #202124;">3</text>
+<text x="212" y="30" style="font-size: 20px; fill: #202124;">ё</text>
+<rect x="270" y="10" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="277" y="56" style="font-size: 20px; font-weight: bold; fill: #202124;">4</text>
+<text x="277" y="30" style="font-size: 20px; fill: #202124;">Ё</text>
+<rect x="335" y="10" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="342" y="56" style="font-size: 20px; font-weight: bold; fill: #202124;">5</text>
+<text x="342" y="30" style="font-size: 20px; fill: #202124;">ъ</text>
+<rect x="400" y="10" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="407" y="56" style="font-size: 20px; font-weight: bold; fill: #202124;">6</text>
+<text x="407" y="30" style="font-size: 20px; fill: #202124;">Ъ</text>
+<rect x="465" y="10" width="60" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="472" y="56" style="font-size: 20px; fill: #9aa0a6;">7</text>
+<text x="472" y="30" style="font-size: 20px; fill: #9aa0a6;">&amp;</text>
+<rect x="530" y="10" width="60" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="537" y="56" style="font-size: 20px; fill: #9aa0a6;">8</text>
+<text x="537" y="30" style="font-size: 20px; fill: #9aa0a6;">*</text>
+<rect x="595" y="10" width="60" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="602" y="56" style="font-size: 20px; fill: #9aa0a6;">9</text>
+<text x="602" y="30" style="font-size: 20px; fill: #9aa0a6;">(</text>
+<rect x="660" y="10" width="60" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="667" y="56" style="font-size: 20px; fill: #9aa0a6;">0</text>
+<text x="667" y="30" style="font-size: 20px; fill: #9aa0a6;">)</text>
+<rect x="725" y="10" width="60" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="732" y="56" style="font-size: 20px; fill: #9aa0a6;">-</text>
+<text x="732" y="30" style="font-size: 20px; fill: #9aa0a6;">_</text>
+<rect x="790" y="10" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="797" y="56" style="font-size: 20px; font-weight: bold; fill: #202124;">ч</text>
+<rect x="855" y="10" width="125" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="917" y="44" text-anchor="middle" style="font-size: 13px; font-weight: bold; fill: #202124;">Backspace</text>
+<rect x="10" y="75" width="92.5" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="56.25" y="109" text-anchor="middle" style="font-size: 13px; font-weight: bold; fill: #202124;">Tab</text>
+<rect x="107.5" y="75" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="114.5" y="121" style="font-size: 20px; font-weight: bold; fill: #202124;">я</text>
+<rect x="172.5" y="75" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="179.5" y="121" style="font-size: 20px; font-weight: bold; fill: #202124;">в</text>
+<rect x="237.5" y="75" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="244.5" y="121" style="font-size: 20px; font-weight: bold; fill: #202124;">е</text>
+<text x="292.5" y="127" text-anchor="end" style="font-size: 14px; fill: #d93025;">ё</text>
+<rect x="302.5" y="75" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="309.5" y="121" style="font-size: 20px; font-weight: bold; fill: #202124;">р</text>
+<rect x="367.5" y="75" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="374.5" y="121" style="font-size: 20px; font-weight: bold; fill: #202124;">т</text>
+<rect x="432.5" y="75" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="439.5" y="121" style="font-size: 20px; font-weight: bold; fill: #202124;">ы</text>
+<rect x="497.5" y="75" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="504.5" y="121" style="font-size: 20px; font-weight: bold; fill: #202124;">у</text>
+<text x="552.5" y="127" text-anchor="end" style="font-size: 14px; fill: #d93025;">ў</text>
+<rect x="562.5" y="75" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="569.5" y="121" style="font-size: 20px; font-weight: bold; fill: #202124;">і</text>
+<text x="617.5" y="127" text-anchor="end" style="font-size: 14px; fill: #d93025;">и</text>
+<rect x="627.5" y="75" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="634.5" y="121" style="font-size: 20px; font-weight: bold; fill: #202124;">о</text>
+<rect x="692.5" y="75" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="699.5" y="121" style="font-size: 20px; font-weight: bold; fill: #202124;">п</text>
+<rect x="757.5" y="75" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="764.5" y="121" style="font-size: 20px; font-weight: bold; fill: #202124;">ш</text>
+<rect x="822.5" y="75" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="829.5" y="121" style="font-size: 20px; font-weight: bold; fill: #202124;">ў</text>
+<text x="877.5" y="127" text-anchor="end" style="font-size: 14px; fill: #d93025;">щ</text>
+<rect x="887.5" y="75" width="92.5" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="894.5" y="121" style="font-size: 20px; font-weight: bold; fill: #202124;">э</text>
+<rect x="10" y="140" width="108.75" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="64.375" y="174" text-anchor="middle" style="font-size: 13px; font-weight: bold; fill: #202124;">Search</text>
+<rect x="123.75" y="140" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="130.75" y="186" style="font-size: 20px; font-weight: bold; fill: #202124;">а</text>
+<rect x="188.75" y="140" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="195.75" y="186" style="font-size: 20px; font-weight: bold; fill: #202124;">с</text>
+<rect x="253.75" y="140" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="260.75" y="186" style="font-size: 20px; font-weight: bold; fill: #202124;">д</text>
+<rect x="318.75" y="140" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="325.75" y="186" style="font-size: 20px; font-weight: bold; fill: #202124;">ф</text>
+<rect x="383.75" y="140" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="390.75" y="186" style="font-size: 20px; font-weight: bold; fill: #202124;">г</text>
+<rect x="448.75" y="140" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="455.75" y="186" style="font-size: 20px; font-weight: bold; fill: #202124;">х</text>
+<rect x="513.75" y="140" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="520.75" y="186" style="font-size: 20px; font-weight: bold; fill: #202124;">й</text>
+<rect x="578.75" y="140" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="585.75" y="186" style="font-size: 20px; font-weight: bold; fill: #202124;">к</text>
+<rect x="643.75" y="140" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="650.75" y="186" style="font-size: 20px; font-weight: bold; fill: #202124;">л</text>
+<rect x="708.75" y="140" width="60" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="715.75" y="186" style="font-size: 20px; fill: #9aa0a6;">;</text>
+<text x="715.75" y="160" style="font-size: 20px; fill: #9aa0a6;">:</text>
+<rect x="773.75" y="140" width="60" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="780.75" y="186" style="font-size: 20px; fill: #9aa0a6;">&apos;</text>
+<text x="780.75" y="160" style="font-size: 20px; fill: #9aa0a6;">&quot;</text>
+<rect x="838.75" y="140" width="141.25" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="909.375" y="174" text-anchor="middle" style="font-size: 13px; font-weight: bold; fill: #202124;">Enter</text>
+<rect x="10" y="205" width="141.25" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="80.625" y="239" text-anchor="middle" style="font-size: 13px; font-weight: bold; fill: #202124;">Shift</text>
+<rect x="156.25" y="205" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="163.25" y="251" style="font-size: 20px; font-weight: bold; fill: #202124;">з</text>
+<rect x="221.25" y="205" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="228.25" y="251" style="font-size: 20px; font-weight: bold; fill: #202124;">ь</text>
+<text x="276.25" y="257" text-anchor="end" style="font-size: 14px; fill: #d93025;">ъ</text>
+<rect x="286.25" y="205" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="293.25" y="251" style="font-size: 20px; font-weight: bold; fill: #202124;">ц</text>
+<rect x="351.25" y="205" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="358.25" y="251" style="font-size: 20px; font-weight: bold; fill: #202124;">ж</text>
+<rect x="416.25" y="205" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="423.25" y="251" style="font-size: 20px; font-weight: bold; fill: #202124;">б</text>
+<rect x="481.25" y="205" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="488.25" y="251" style="font-size: 20px; font-weight: bold; fill: #202124;">н</text>
+<rect x="546.25" y="205" width="60" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#5f6368" stroke-width="1.5" />
+<text x="553.25" y="251" style="font-size: 20px; font-weight: bold; fill: #202124;">м</text>
+<rect x="611.25" y="205" width="60" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="618.25" y="251" style="font-size: 20px; fill: #9aa0a6;">,</text>
+<text x="618.25" y="225" style="font-size: 20px; fill: #9aa0a6;">&lt;</text>
+<rect x="676.25" y="205" width="60" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="683.25" y="251" style="font-size: 20px; fill: #9aa0a6;">.</text>
+<text x="683.25" y="225" style="font-size: 20px; fill: #9aa0a6;">&gt;</text>
+<rect x="741.25" y="205" width="60" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="748.25" y="251" style="font-size: 20px; fill: #9aa0a6;">/</text>
+<text x="748.25" y="225" style="font-size: 20px; fill: #9aa0a6;">?</text>
+<rect x="806.25" y="205" width="173.75" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="893.125" y="239" text-anchor="middle" style="font-size: 13px; font-weight: bold; fill: #202124;">Shift</text>
+<rect x="10" y="270" width="76.25" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="48.125" y="304" text-anchor="middle" style="font-size: 13px; font-weight: bold; fill: #202124;">Control</text>
+<rect x="91.25" y="270" width="76.25" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="129.375" y="304" text-anchor="middle" style="font-size: 13px; font-weight: bold; fill: #202124;">fn</text>
+<rect x="172.5" y="270" width="76.25" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="210.625" y="304" text-anchor="middle" style="font-size: 13px; font-weight: bold; fill: #202124;">G</text>
+<rect x="253.75" y="270" width="76.25" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="291.875" y="304" text-anchor="middle" style="font-size: 13px; font-weight: bold; fill: #202124;">Alt</text>
+<rect x="335.0" y="270" width="482.5" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="576.25" y="304" text-anchor="middle" style="font-size: 13px; font-weight: bold; fill: #202124;">Space</text>
+<rect x="822.5" y="270" width="76.25" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="860.625" y="304" text-anchor="middle" style="font-size: 13px; font-weight: bold; fill: #202124;">Compose</text>
+<rect x="903.75" y="270" width="76.25" height="60" rx="4" ry="4" fill="#ffffff" stroke="#5f6368" stroke-width="1.5" />
+<text x="941.875" y="304" text-anchor="middle" style="font-size: 13px; font-weight: bold; fill: #202124;">Control</text>
+</svg>
