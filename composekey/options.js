@@ -14,71 +14,56 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-let backgroundPage = chrome.extension
-    ? chrome.extension.getBackgroundPage()
-    : this;
-
-if (!chrome.extension) {
-  // We've loaded options.html without actually being in an extension,
-  // presumably in order to test it.
-  // Fake an extension environment by loading background.js explicitly.
-  let fakes = document.createElement('script');
-  fakes.src = 'fakes.js';
-  fakes.onload = () => {
-    let background = document.createElement('script');
-    background.src = 'background.js';
-    background.onload = () => {
-      let nextContextID = 1;
-      for (let id of ['testArea', 'testDiv']) {
-        const contextID = nextContextID;
-        nextContextID += 1;
-
-        let elem = document.getElementById(id);
-        elem.addEventListener('focus', () => {
-          chrome.input.ime.onFocus.listener({contextID: contextID});
-        });
-        elem.addEventListener('blur', () => {
-          chrome.input.ime.onFocus.listener(contextID);
-        });
-      }
-
-      restore();
-    };
-    document.body.appendChild(background);
-  };
-  document.body.appendChild(fakes);
-}
-
 for (let eventType of ['keydown', 'keypress', 'keyup', 'textInput']) {
-  document.getElementById('testArea')
-    .addEventListener(eventType, (event) => {
-      console.log('testArea ', eventType, ": ", event)
-    }, {passive: true});
+  document.getElementById('testArea').addEventListener(eventType, (event) => {
+    console.log('testArea ', eventType, ': ', event);
+  }, {passive: true});
 }
 
-function restore() {
-  let key = document.getElementById('key');
-  if (key.value != backgroundPage.composeKey) {
-    key.value = backgroundPage.composeKey;
+/**
+ * Restores the options from storage.
+ */
+async function restore() {
+  const response = await chrome.runtime.sendMessage({command: 'getOptions'});
+  let keyElem = document.getElementById('key');
+  if (keyElem.value != response.composeKey) {
+    keyElem.value = response.composeKey;
     document.getElementById('keepModifierLabel').style.display =
-        (key.value == 'ContextMenu') ? 'none' : 'unset';
+        (keyElem.value == 'ContextMenu') ? 'none' : 'unset';
   }
 
-  let keepModifier = document.getElementById('keepModifier');
-  if (keepModifier.checked != backgroundPage.keepModifier) {
-    keepModifier.checked = backgroundPage.keepModifier;
+  let keepModifierElem = document.getElementById('keepModifier');
+  if (keepModifierElem.checked != response.keepModifier) {
+    keepModifierElem.checked = response.keepModifier;
   }
 
   let composeFileElem = document.getElementById('composeFile');
-  if (composeFileElem.value != backgroundPage.composeFile) {
-    composeFileElem.value = backgroundPage.composeFile;
+  if (composeFileElem.value != response.composeFile) {
+    composeFileElem.value = response.composeFile;
     updateComposeFileStatus();
   }
 }
-document.addEventListener('DOMContentLoaded', restore);
-backgroundPage.onComposeKeyLoaded = restore;
-backgroundPage.onComposeFileLoaded = restore;
 
+document.addEventListener('DOMContentLoaded', restore);
+
+// TODO: nkillewald - Make this update when/if sync changes.
+// chrome.storage.sync.onChanged.addListener(restore);
+
+// TODO: nkillewald - Also make this update when/if local changes, as that might
+// happen if the compose file is too big to store in sync. We don't care about
+// anything else in local storage, though, as that's effectively working RAM
+// for the ServiceWorker.
+/*
+chrome.storage.local.onChanged.addListener((changed) => {
+  if(!!changed.composeFile) {
+    restore();
+  }
+});
+*/
+
+/**
+ * Stores the key options in storage on changes.
+ */
 function keyChanged() {
   let key = document.getElementById('key');
   document.getElementById('keepModifierLabel').style.display =
@@ -86,9 +71,12 @@ function keyChanged() {
 
   let keepModifier = document.getElementById('keepModifier');
 
-  backgroundPage.storeKey({
-    key: key.value,
-    keepModifier: keepModifier.checked,
+  chrome.runtime.sendMessage({
+    command: 'storeKeyOptions',
+    data: {
+      key: key.value,
+      keepModifier: keepModifier.checked,
+    }
   });
 }
 document.getElementById('key')
@@ -96,10 +84,20 @@ document.getElementById('key')
 document.getElementById('keepModifier')
   .addEventListener('change', keyChanged, {passive: true});
 
-function updateComposeFile() {
-  let content = document.getElementById('composeFile').value;
-  if (content != backgroundPage.composeFile) {
-    backgroundPage.storeComposeFile(content);
+
+/**
+ * Stores the compose file in storage on changes.
+ */
+async function updateComposeFile() {
+  const content = document.getElementById('composeFile').value;
+  const response = await chrome.runtime.sendMessage({command: 'getOptions'});
+
+  if (content === response.composeFile) return;
+
+  const storeStatus =
+      await chrome.runtime.sendMessage({command: 'storeComposeFile',
+         data: content});
+  if (storeStatus.result === 'OK') {
     updateComposeFileStatus();
   }
 }
@@ -129,18 +127,21 @@ document.getElementById('loadComposeFile')
   }, {passive: true});
 
 document.getElementById('saveComposeFile')
-  .addEventListener('click', () => {
-    let a = document.createElement("a");
-    a.style = "display: none";
-    a.href = window.URL.createObjectURL(
-      new Blob([backgroundPage.composeFile],
-               {type: "application/octet-stream"}));
-    a.download = ".XCompose";
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(a.href);
-    a.remove();
-  }, {passive: true});
+    .addEventListener('click', async () => {
+      const response =
+          await chrome.runtime.sendMessage({command: 'getOptions'});
+      if (!response) return;
+
+      let a = document.createElement('a');
+      a.style = 'display: none';
+      a.href = window.URL.createObjectURL(
+          new Blob([response.composeFile], {type: 'application/octet-stream'}));
+      a.download = '.XCompose';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(a.href);
+      a.remove();
+    }, {passive: true});
 
 document.getElementById('resetComposeFile')
   .addEventListener('click', () => {
@@ -148,27 +149,33 @@ document.getElementById('resetComposeFile')
   }, {passive: true});
 
 document.getElementById('confirmResetComposeFile')
-  .addEventListener('click', () => {
-    backgroundPage.clearComposeFile();
-    restore();
-    document.getElementById('confirmResetDialog').style.display = 'none';
-  }, {passive: true});
+    .addEventListener('click', async () => {
+      const response =
+          await chrome.runtime.sendMessage({command: 'clearComposeFile'});
+      if (!response) return;
+
+      restore();
+      document.getElementById('confirmResetDialog').style.display = 'none';
+    }, {passive: true});
 
 document.getElementById('cancelResetComposeFile')
   .addEventListener('click', () => {
     document.getElementById('confirmResetDialog').style.display = 'none';
   }, {passive: true});
 
-function updateComposeFileStatus() {
+/**
+ * Updates the compose file status.
+ */
+async function updateComposeFileStatus() {
+  const status = await chrome.runtime.sendMessage({command: 'getFileStatus'});
+  if (!status) return;
+
   const errors = document.getElementById('errors');
   const warnings = document.getElementById('warnings');
   for (let elem of [errors, warnings]) {
     elem.innerText = '';
     elem.style.display = 'none';
   }
-
-  const status = backgroundPage.fileStatus;
-  if (!status) return;
 
   if (status.errors.length > 0) {
     errors.insertAdjacentText('beforeend', 'Errors:');
@@ -202,7 +209,3 @@ function updateComposeFileStatus() {
     warnings.style.display = 'block';
   }
 }
-document.getElementById('key')
-  .addEventListener('change', keyChanged, {passive: true});
-document.getElementById('keepModifier')
-  .addEventListener('change', keyChanged, {passive: true});
