@@ -910,7 +910,7 @@ function eventToSyms(keyData) {
   }
 
   let location = keyData.location;
-  if (location === undefined) {
+  if (location === undefined && typeof KeyboardEvent !== 'undefined') {
     // As of M65, chrome.input.ime events are missing the standard location
     // field. Fill them in from the code, defaulting to STANDARD or LEFT if
     // they're remapped from someplace weird.
@@ -960,7 +960,7 @@ function eventToSyms(keyData) {
   }
 
   if (key == 'Enter'
-      && location == KeyboardEvent.DOM_KEY_LOCATION_NUMPAD) {
+      && location && location == KeyboardEvent.DOM_KEY_LOCATION_NUMPAD) {
     // Numpad syms are usually the standard sym with a KP_ prefix, but numpad
     // Enter corresponds to KP_Enter, whereas standard Enter corresponds to
     // Return.
@@ -989,6 +989,7 @@ function eventToSyms(keyData) {
     return [sym.substring(0, sym.length-4) + '_Lock'];
   }
   switch (location) {
+  case undefined:
   case KeyboardEvent.DOM_KEY_LOCATION_STANDARD:
     return [sym];
   case KeyboardEvent.DOM_KEY_LOCATION_RIGHT:
@@ -1238,7 +1239,7 @@ function addBuiltinSequences(root) {
     for (const key of seq) {
       let syms = eventToSyms({
         key: key,
-        location: KeyboardEvent.DOM_KEY_LOCATION_STANDARD,
+        code: ""
       });
       for (const sym of syms) {
         events.push({mods: modifiersAny, sym: sym});
@@ -1426,22 +1427,26 @@ function parseComposeFile(composeFile) {
  * The JavaScript key code to use for the Compose key.
  * @type {?string}
  */
-var composeKey = localStorage.getItem('key');
+var composeKey = 'AltRight';
+chrome.storage.local.get({key: 'AltRight'},
+                         (val) => { composeKey = val.key; });
 /**
  * If true (the default) and composeKey is set to a modifier, retain the
  * modifier's original behavior.
  * @type {?boolean}
  */
-var keepModifier = localStorage.getItem('keepModifier') == "true";
+var keepModifier = true;
+chrome.storage.local.get('keepModifier',
+                         (val) => { keepModifier = val.keepModifier == 'true'; });
 
 function setKey(settings) {
   composeKey = settings.key;
   keepModifier = settings.keepModifier;
-  localStorage.setItem('key', settings.key);
+  chrome.storage.local.set({key: settings.key});
   if (settings.keepModifier) {
-    localStorage.setItem('keepModifier', "true");
+    chrome.storage.local.set({keepModifier: 'true'});
   } else {
-    localStorage.removeItem('keepModifier');
+    chrome.storage.local.remove('keepModifier');
   }
   resetState();
   console.log('set key to ', settings);
@@ -1530,7 +1535,7 @@ function storeComposeFile(content) {
 
     console.warn('Failed to store compose file to Chrome sync:',
                   chrome.runtime.lastError);
-    localStorage.setItem('composeFile', content);
+    chrome.storage.local.set({composeFile: content});
     console.log('Stored compose file to local storage (%d characters).',
                 lengthInCodepoints(content));
 
@@ -1547,7 +1552,7 @@ function storeComposeFile(content) {
 }
 
 function clearComposeFile() {
-  localStorage.removeItem('composeFile');
+  chrome.storage.local.remove('composeFile');
   chrome.storage.sync.remove('composeFile');
   setComposeFile(defaultComposeFile);
   console.log('Compose file reset to default.');
@@ -1557,18 +1562,21 @@ function clearComposeFile() {
 var onComposeFileLoaded = null;
 
 function loadLocalComposeFile() {
-  let content = localStorage.getItem('composeFile');
-  if (content == null) {
-    setComposeFile(defaultComposeFile);
-  } else {
-    console.log('Loaded compose file from local storage (%d characters).',
-                lengthInCodepoints(content));
-    setComposeFile(content);
-  }
+  chrome.storage.local.get(
+    { 'composeFile': null },
+    (val) => {
+      if (val.composeFile == null) {
+        setComposeFile(defaultComposeFile);
+      } else {
+        console.log('Loaded compose file from local storage (%d characters).',
+                    lengthInCodepoints(content));
+        setComposeFile(content);
+      }
 
-  if (onComposeFileLoaded) {
-    onComposeFileLoaded(composeFile);
-  }
+      if (onComposeFileLoaded) {
+        onComposeFileLoaded(composeFile);
+      }
+    });
 }
 
 chrome.storage.sync.get('composeFile', (stored) => {
