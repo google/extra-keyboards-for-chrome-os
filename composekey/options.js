@@ -85,10 +85,15 @@ document.getElementById('keepModifier')
   .addEventListener('change', keyChanged, {passive: true});
 
 
+const applyButtonIds = ['applyComposeFileTop', 'applyComposeFileBottom'];
+const appliedTexts = ['applyComposeTextTop', 'applyComposeTextBottom'];
+let appliedTextTimeoutId = null;
+
 /**
  * Stores the compose file in storage on changes.
  */
 async function updateComposeFile() {
+  clearTimeout(appliedTextTimeoutId);
   const content = document.getElementById('composeFile').value;
   const response = await chrome.runtime.sendMessage({command: 'getOptions'});
 
@@ -99,12 +104,33 @@ async function updateComposeFile() {
          data: content});
   if (storeStatus.result === 'OK') {
     updateComposeFileStatus();
+
+    for(const id of appliedTexts) {
+      document.getElementById(id)
+        .classList.remove('hidden');
+    }
+
+    appliedTextTimeoutId = setTimeout(() => {
+      for(const id of appliedTexts) {
+        document.getElementById(id)
+          .classList.add('hidden');
+        appliedTextTimeoutId = null;
+      }
+    }, 3000);
   }
 }
 
-window.onunload = updateComposeFile;
+for(const id of applyButtonIds) {
+  document.getElementById(id)
+    .addEventListener('click', updateComposeFile, {passive: true});
+}
 document.getElementById('composeFile')
-  .addEventListener('blur', updateComposeFile, {passive: true});
+  .addEventListener('change', async () => {
+      for(const id of appliedTexts) {
+        document.getElementById(id)
+          .classList.add('hidden');
+      }
+  });
 
 document.getElementById('loadComposeFileButton')
   .addEventListener('click', () => {

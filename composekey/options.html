@@ -37,6 +37,17 @@
       }
       #errors { border: thin solid red; }
       #warnings { border: thin solid brown; }
+
+      .applyButtonContainer {
+        display: flex;
+        flex-direction: row;
+        gap: 1ex;
+        align-items: center;
+      }
+
+      .hidden {
+        visibility: hidden;
+      }
     </style>
   </head>
   <body>
@@ -117,7 +128,18 @@
       </p>
       <div id="errors"></div>
       <div id="warnings"></div>
+      <div class="applyButtonContainer">
+        <button id="applyComposeFileTop">Apply</button>
+        <div class="hidden" id="applyComposeTextTop">Applied!</div>
+      </div>
       <textarea id="composeFile" cols=100 rows=100></textarea>
+      <!-- It's a rather large textarea; we should have buttons on both
+           the top AND bottom just in case the user loses track of
+           either one. -->
+      <div class="applyButtonContainer">
+        <button id="applyComposeFileBottom">Apply</button>
+        <div class="hidden" id="applyComposeTextBottom">Applied!</div>
+      </div>
     </section>
 
     <script src="options.js"></script>
